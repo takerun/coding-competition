@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "random": "cpp"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+		"cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt.out -fdiagnostics-color=always -std=c++11 && $dir$fileNameWithoutExt.out",
+	},
+}
