@@ -1,5 +1,6 @@
 {
     "editor.tabCompletion": "on",
+    "editor.formatOnSave": true,
     "files.associations": {
         "iostream": "cpp",
         "random": "cpp"

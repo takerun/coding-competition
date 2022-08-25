@@ -10,7 +10,8 @@
             "#define rep(i, n) for (int i = 0; i < (int)(n); i++)",
             "typedef long long int int64;",
             "",
-            "int main() {",
+            "int main()",
+            "{",
             "    fastIO();",
             "",
             "    // your code",
@@ -21,13 +22,19 @@
         ],
         "description": "Initialize G++ Code"
     },
+    "vector": {
+        "prefix": "vector",
+        "body": "vector<int64> x(n);",
+        "description": "vector"
+    },
     "1D input": {
         "prefix": "1d",
         "body": [
             "int64 N;",
             "cin >> N;",
             "vector<int64> x(N);",
-            "rep(i, N) {",
+            "rep(i, N)",
+            "{",
             "    cin >> x[i];",
             "}",
         ],
@@ -39,8 +46,10 @@
             "int64 H, W;",
             "cin >> H >> W;",
             "vector<vector<int64>> G(H, vector<int64>(W)); ",
-            "rep(i, H) {",
-            "    rep(j, W) {",
+            "rep(i, H)",
+            "{",
+            "    rep(j, W)",
+            "    {",
             "        cin >> G.at(i).at(j);",
             "    }",
             "}"
@@ -55,7 +64,8 @@
             "int64 Asize;",
             "cin >> astr;",
             "Asize = astr.size();",
-            "rep(i, Asize) {",
+            "rep(i, Asize)",
+            "{",
             "    a.emplace_back(astr[i] - '0');",
             "}",
         ],
