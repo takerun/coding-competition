@@ -1,4 +1,5 @@
 {
+    "editor.tabCompletion": "on",
     "files.associations": {
         "iostream": "cpp",
         "random": "cpp"

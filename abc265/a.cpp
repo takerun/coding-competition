@@ -5,18 +5,17 @@ using namespace std;
 #define endl "\n"
 typedef long long int int64;
 
-int binarySearch(vector<int64> arr[], int64 size);
 
 int main() {
 	fastIO();
-    int64 cnt = 0, remainder = 1;
+    int64 X, Y, N;
+    cin>>X>>Y>>N;
 
-    do {
-        remainder = remainder * 26 % 10000007;
-        cnt++;
-    } while (cnt != 260);
-
-    cout<<remainder;
+    if (X*3 > Y) {
+        cout<<Y*(N/3) + X*(N%3);
+    } else {
+        cout<<X*N;
+    }
 
 	return 0;
 }

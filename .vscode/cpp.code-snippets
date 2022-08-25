@@ -1,0 +1,64 @@
+{
+    "G++ Code Initialization": {
+        "prefix": "g++",
+        "body": [
+            "#include <bits/stdc++.h>",
+            "using namespace std;",
+            "",
+            "#define fastIO() ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr)",
+            "#define endl \"\\n\"",
+            "#define rep(i, n) for (int i = 0; i < (int)(n); i++)",
+            "typedef long long int int64;",
+            "",
+            "int main() {",
+            "    fastIO();",
+            "",
+            "    // your code",
+            "",
+            "    cout << endl;",
+            "    return 0;",
+            "}"
+        ],
+        "description": "Initialize G++ Code"
+    },
+    "1D input": {
+        "prefix": "1d",
+        "body": [
+            "int64 N;",
+            "cin >> N;",
+            "vector<int64> x(N);",
+            "rep(i, N) {",
+            "    cin >> x[i];",
+            "}",
+        ],
+        "description": "1D input"
+    },
+    "2D input": {
+        "prefix": "2d",
+        "body": [
+            "int64 H, W;",
+            "cin >> H >> W;",
+            "vector<vector<int64>> G(H, vector<int64>(W)); ",
+            "rep(i, H) {",
+            "    rep(j, W) {",
+            "        cin >> G.at(i).at(j);",
+            "    }",
+            "}"
+        ],
+        "description": "2D input"
+    },
+    "Each string input": {
+        "prefix": "1string",
+        "body": [
+            "string astr;",
+            "vector<int> a;",
+            "int64 Asize;",
+            "cin >> astr;",
+            "Asize = astr.size();",
+            "rep(i, Asize) {",
+            "    a.emplace_back(astr[i] - '0');",
+            "}",
+        ],
+        "description": "Each sting input"
+    }
+}
