@@ -1,5 +1,5 @@
 {
-    "G++ Code Initialization": {
+    "[Initialization] G++ Code": {
         "prefix": "g++",
         "body": [
             "#include <bits/stdc++.h>",
@@ -16,25 +16,43 @@
             "{",
             "    fastIO();",
             "",
-            "    // your code",
+            "    // logic",
             "",
             "    cout << endl;",
             "    return 0;",
             "}"
         ],
-        "description": "Initialize G++ Code"
+        "description": "G++ Code"
     },
-    "vector": {
-        "prefix": "vector",
-        "body": "vector<int64> x(n);",
-        "description": "vector"
+    "[Def] vector1": {
+        "prefix": "vector1",
+        "body": "vector<int> x(n);",
+        "description": "1D vector"
     },
-    "1D input": {
+    "[Def] vector2": {
+        "prefix": "vector2",
+        "body": "vector<vector<int>> xy(n, vector<int>(n));",
+        "description": "2D vector"
+    },
+    "modint998244353": {
+        "prefix": "modint998244353",
+        "body": [
+            "#include<atcoder/modint>",
+            "using mint=atcoder::modint998244353;"
+        ],
+        "description": "modint998244353"
+    },
+    "modint1000000007": {
+        "prefix": "modint1000000007",
+        "body": [
+            "#include<atcoder/modint>",
+            "using mint=atcoder::modint1000000007;"
+        ],
+        "description": "modint1000000007"
+    },
+    "[Input] 1D": {
         "prefix": "1d",
         "body": [
-            "int64 N;",
-            "cin >> N;",
-            "vector<int64> x(N);",
             "rep(i, N)",
             "{",
             "    cin >> x[i];",
@@ -42,12 +60,9 @@
         ],
         "description": "1D input"
     },
-    "2D input": {
+    "[Input] 2D": {
         "prefix": "2d",
         "body": [
-            "int64 H, W;",
-            "cin >> H >> W;",
-            "vector<vector<int64>> G(H, vector<int64>(W)); ",
             "rep(i, H)",
             "{",
             "    rep(j, W)",
@@ -58,26 +73,27 @@
         ],
         "description": "2D input"
     },
-    "1D Cumulative variables": {
+    "[Input] 1D Cumulative": {
         "prefix": "1cumul",
         "body": [
-            "int64 N;",
+            "int N;",
             "cin >> N;",
-            "vector<int64> x(N), cuml(N+1);",
+            "vector<int> x(N), cuml(N+1);",
             "cuml[0] = 0;",
             "rep(i, N)",
             "{",
             "    cin >> x[i];",
             "    cuml[i + 1] = cuml[i] + x[i];",
             "}"
-        ]
+        ],
+        "description": "1d cumulative input"
     },
-    "Each string input": {
+    "[Input] each string": {
         "prefix": "1string",
         "body": [
             "string astr;",
             "vector<int> a;",
-            "int64 Asize;",
+            "int Asize;",
             "cin >> astr;",
             "Asize = astr.size();",
             "rep(i, Asize)",
@@ -85,6 +101,17 @@
             "    a.emplace_back(astr[i] - '0');",
             "}",
         ],
-        "description": "Each sting input"
+        "description": "each sting input"
+    },
+    "[Measure] manhattan distance": {
+        "prefix": "mandistance",
+        "body": [
+            "int distance = 0;",
+            "rep(i, N)",
+            "{",
+            "    distance += abs(x[i] - y[i]);",
+            "}",
+        ],
+        "description": "manhattan distance"
     }
 }

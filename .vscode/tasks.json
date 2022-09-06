@@ -7,11 +7,13 @@
 			"command": "/usr/local/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
-				"-std=c++11",
+				"-std=c++14",
 				"-g",
 				"${file}",
 				"-o",
-				"${fileDirname}/a.out"
+				"${fileDirname}/a.out",
+				"-I",
+				"${workspaceFolder}/lib/ac-library"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
