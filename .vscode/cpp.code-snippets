@@ -25,12 +25,12 @@
         "description": "G++ Code"
     },
     "[Def] vector1": {
-        "prefix": "vector1",
+        "prefix": "vector1d",
         "body": "vector<int> x(n);",
         "description": "1D vector"
     },
     "[Def] vector2": {
-        "prefix": "vector2",
+        "prefix": "vector2d",
         "body": "vector<vector<int>> xy(n, vector<int>(n));",
         "description": "2D vector"
     },
@@ -51,7 +51,7 @@
         "description": "modint1000000007"
     },
     "[Input] 1D": {
-        "prefix": "1d",
+        "prefix": "input1d",
         "body": [
             "rep(i, N)",
             "{",
@@ -61,7 +61,7 @@
         "description": "1D input"
     },
     "[Input] 2D": {
-        "prefix": "2d",
+        "prefix": "input2d",
         "body": [
             "rep(i, H)",
             "{",
@@ -74,7 +74,7 @@
         "description": "2D input"
     },
     "[Input] 1D Cumulative": {
-        "prefix": "1cumul",
+        "prefix": "cumul1d",
         "body": [
             "int N;",
             "cin >> N;",
@@ -89,7 +89,7 @@
         "description": "1d cumulative input"
     },
     "[Input] each string": {
-        "prefix": "1string",
+        "prefix": "string1d",
         "body": [
             "string astr;",
             "vector<int> a;",
@@ -113,5 +113,22 @@
             "}",
         ],
         "description": "manhattan distance"
+    },
+    "[Method] retrieving max in vector": {
+        "prefix": "maxvec1d",
+        "body": "*max_element(all(x))",
+        "description": "max in vactor"
+    },
+    "[Method] retrieving sum in stack": {
+        "prefix": "sumstack1d",
+        "body": [
+            "int sum = 0;",
+            "while (!s.empty())",
+            "{",
+            "    sum = sum + s.top();",
+            "    s.pop();",
+            "}",
+        ],
+        "description": "sum in stack"
     }
 }
