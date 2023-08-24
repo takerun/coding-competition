@@ -4,14 +4,14 @@
 		{
 			"type": "cppbuild",
 			"label": "C/C++: g++ アクティブなファイルのビルド",
-			"command": "/usr/local/bin/g++",
+			"command": "/opt/homebrew/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-std=c++14",
 				"-g",
 				"${file}",
 				"-o",
-				"${fileDirname}/a.out",
+				"${fileDirname}/${fileBasenameNoExtension}.out",
 				"-I",
 				"${workspaceFolder}/lib/ac-library"
 			],
@@ -21,8 +21,11 @@
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": "build",
-			"detail": "コンパイラ: /usr/local/bin/g++"
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "コンパイラ: /opt/homebrew/bin/g++、ショートカットキー: command+shift+B"
 		}
 	]
 }

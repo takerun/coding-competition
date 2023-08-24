@@ -3,13 +3,14 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/lib/ac-library"
             ],
             "defines": [],
             "macFrameworkPath": [
                 "/System/Library/Frameworks"
             ],
-            "compilerPath": "/usr/local/bin/g++",
+            "compilerPath": "/opt/homebrew/bin/g++",
             "cStandard": "c11",
             "cppStandard": "c++14",
             "intelliSenseMode": "linux-gcc-x64"
