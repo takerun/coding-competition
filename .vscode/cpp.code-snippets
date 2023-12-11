@@ -7,53 +7,53 @@
             "",
             "#define fastIO() ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr)",
             "#define endl \"\\n\"",
-            "#define rep(i, n) for (int i = 0; i < (int)(n); i++)",
-            "#define rep_ft(i, f, t) for (int i = f; i < (int)(t); i++)",
             "#define all(x) std::begin(x), std::end(x)",
             "typedef long long int int64;",
             "",
             "int main()",
             "{",
             "    fastIO();",
+            "    // input",
             "",
             "    // logic",
             "",
+            "    // output",
             "    cout << endl;",
             "    return 0;",
             "}"
         ],
-        "description": "G++ Code"
+        "description": "G++ Code Setup"
     },
-    "[Def] vector1": {
-        "prefix": "vector1d",
-        "body": "vector<int> x(n);",
-        "description": "1D vector"
-    },
-    "[Def] vector2": {
-        "prefix": "vector2d",
-        "body": "vector<vector<int>> xy(n, vector<int>(n));",
-        "description": "2D vector"
-    },
-    "modint998244353": {
-        "prefix": "modint998244353",
+    "[Include] modint998244353": {
+        "prefix": "include_modint998244353",
         "body": [
             "#include<atcoder/modint>",
             "using mint=atcoder::modint998244353;"
         ],
-        "description": "modint998244353"
+        "description": "include modint998244353"
     },
-    "modint1000000007": {
-        "prefix": "modint1000000007",
+    "[Include] modint1000000007": {
+        "prefix": "include_modint1000000007",
         "body": [
             "#include<atcoder/modint>",
             "using mint=atcoder::modint1000000007;"
         ],
-        "description": "modint1000000007"
+        "description": "include modint1000000007"
+    },
+    "[Def] vector1": {
+        "prefix": "def_vector1d",
+        "body": "vector<int> x(n);",
+        "description": "define 1D vector"
+    },
+    "[Def] vector2": {
+        "prefix": "def_vector2d",
+        "body": "vector<vector<int>> X(n, vector<int>(n));",
+        "description": "define 2D vector"
     },
     "[Input] 1D": {
-        "prefix": "input1d",
+        "prefix": "input_1d",
         "body": [
-            "rep(i, N)",
+            "for (int i = 0; i < N; i++)",
             "{",
             "    cin >> x[i];",
             "}",
@@ -61,11 +61,11 @@
         "description": "1D input"
     },
     "[Input] 2D": {
-        "prefix": "input2d",
+        "prefix": "input_2d",
         "body": [
-            "rep(i, H)",
+            "for (int i = 0; i < H; i++)",
             "{",
-            "    rep(j, W)",
+            "    for (int j = 0; j < W; j++)",
             "    {",
             "        cin >> G.at(i).at(j);",
             "    }",
@@ -74,13 +74,13 @@
         "description": "2D input"
     },
     "[Input] 1D Cumulative": {
-        "prefix": "cumul1d",
+        "prefix": "input_cumul1d",
         "body": [
             "int N;",
             "cin >> N;",
             "vector<int> x(N), cuml(N+1);",
             "cuml[0] = 0;",
-            "rep(i, N)",
+            "for (int i = 0; i < N; i++)",
             "{",
             "    cin >> x[i];",
             "    cuml[i + 1] = cuml[i] + x[i];",
@@ -89,14 +89,14 @@
         "description": "1d cumulative input"
     },
     "[Input] each string": {
-        "prefix": "string1d",
+        "prefix": "input_string_with_intarr",
         "body": [
             "string astr;",
             "vector<int> a;",
             "int Asize;",
             "cin >> astr;",
             "Asize = astr.size();",
-            "rep(i, Asize)",
+            "for (int i = 0; i < Asize; i++)",
             "{",
             "    a.emplace_back(astr[i] - '0');",
             "}",
@@ -107,7 +107,7 @@
         "prefix": "mandistance",
         "body": [
             "int distance = 0;",
-            "rep(i, N)",
+            "for (int i = 0; i < N; i++)",
             "{",
             "    distance += abs(x[i] - y[i]);",
             "}",
@@ -118,6 +118,11 @@
         "prefix": "maxvec1d",
         "body": "*max_element(all(x))",
         "description": "max in vactor"
+    },
+    "[Method] retrieving sum in vector": {
+        "prefix": "sumvec1d",
+        "body": "accumulate(all(x), 0)",
+        "description": "sum in vactor"
     },
     "[Method] retrieving sum in stack": {
         "prefix": "sumstack1d",
@@ -130,5 +135,27 @@
             "}",
         ],
         "description": "sum in stack"
+    },
+    "[Algorithm] game dfs": {
+        "prefix": "gamedfs",
+        "body": [
+            "// Return score of the best move in the given state",
+            "int dfs(State state) {",
+            "    // use memo",
+            "",
+            "    // terminal condition",
+            "    if (state is end) return score_in_end;",
+            "",
+            "    // try all moves",
+            "    int res = -INF;",
+            "    for (s  : all_state_reached_from_given_state) {",
+            "        // dfs(s) return a score from opponent's view",
+            "        // update res using sum & dfs(s)",
+            "        res = max(res, sum - dfs(s));",
+            "    }",
+            "    return res;",
+            "}"
+        ],
+        "description": "game algo"
     }
 }
