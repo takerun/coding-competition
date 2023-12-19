@@ -7,7 +7,6 @@
             "",
             "#define fastIO() ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr)",
             "#define endl \"\\n\"",
-            "#define all(x) std::begin(x), std::end(x)",
             "typedef long long int int64;",
             "",
             "int main()",
@@ -40,71 +39,31 @@
         ],
         "description": "include modint1000000007"
     },
-    "[Def] vector1": {
-        "prefix": "def_vector1d",
-        "body": "vector<int> x(n);",
-        "description": "define 1D vector"
+    "[Def] 1d vector": {
+        "prefix": "def_vector_1d",
+        "body": "vector<int> x(N, 0);",
+        "description": "define 1d vector"
     },
-    "[Def] vector2": {
-        "prefix": "def_vector2d",
-        "body": "vector<vector<int>> X(n, vector<int>(n));",
-        "description": "define 2D vector"
-    },
-    "[Input] 1D": {
-        "prefix": "input_1d",
-        "body": [
-            "for (int i = 0; i < N; i++)",
-            "{",
-            "    cin >> x[i];",
-            "}",
-        ],
-        "description": "1D input"
-    },
-    "[Input] 2D": {
-        "prefix": "input_2d",
-        "body": [
-            "for (int i = 0; i < H; i++)",
-            "{",
-            "    for (int j = 0; j < W; j++)",
-            "    {",
-            "        cin >> G.at(i).at(j);",
-            "    }",
-            "}"
-        ],
-        "description": "2D input"
-    },
-    "[Input] 1D Cumulative": {
-        "prefix": "input_cumul1d",
-        "body": [
-            "int N;",
-            "cin >> N;",
-            "vector<int> x(N), cuml(N+1);",
-            "cuml[0] = 0;",
-            "for (int i = 0; i < N; i++)",
-            "{",
-            "    cin >> x[i];",
-            "    cuml[i + 1] = cuml[i] + x[i];",
-            "}"
-        ],
-        "description": "1d cumulative input"
+    "[Def] 2d vector": {
+        "prefix": "def_vector_2d",
+        "body": "vector<vector<int>> X(N, vector<int>(M, 0));",
+        "description": "define 2d vector"
     },
     "[Input] each string": {
-        "prefix": "input_string_with_intarr",
+        "prefix": "input_string_with_vec_int",
         "body": [
-            "string astr;",
+            "string S;",
+            "cin >> S;",
             "vector<int> a;",
-            "int Asize;",
-            "cin >> astr;",
-            "Asize = astr.size();",
-            "for (int i = 0; i < Asize; i++)",
+            "for (int i = 0; i < S.size(); i++)",
             "{",
-            "    a.emplace_back(astr[i] - '0');",
+            "    a.emplace_back(S[i] - '0');",
             "}",
         ],
         "description": "each sting input"
     },
     "[Measure] manhattan distance": {
-        "prefix": "mandistance",
+        "prefix": "measure_manhattan_distance",
         "body": [
             "int distance = 0;",
             "for (int i = 0; i < N; i++)",
@@ -114,18 +73,39 @@
         ],
         "description": "manhattan distance"
     },
-    "[Method] retrieving max in vector": {
-        "prefix": "maxvec1d",
-        "body": "*max_element(all(x))",
-        "description": "max in vactor"
+    "[Method] compare 1d vector": {
+        "prefix": "equal_vec_1d",
+        "body": "equal(begin(A), end(A), begin(B), end(B));",
+        "description": "compare 1d vactor"
     },
-    "[Method] retrieving sum in vector": {
-        "prefix": "sumvec1d",
-        "body": "accumulate(all(x), 0)",
-        "description": "sum in vactor"
+    "[Method] compare 2d vector": {
+        "prefix": "equal_vec_2d",
+        "body": [
+            "bool ans = true;",
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    ans &= equal(begin(A), end(A), begin(B), end(B));",
+            "}",
+        ]
+        "description": "compare 2d vactor"
+    },
+    "[Method] retrieving max in 1d vector": {
+        "prefix": "max_vec_1d",
+        "body": "*max_element(begin(x), end(x))",
+        "description": "max in 1d vactor"
+    },
+    "[Method] retrieving min in 1d vector": {
+        "prefix": "min_vec_1d",
+        "body": "*min_element(begin(x), end(x))",
+        "description": "min in 1d vactor"
+    },
+    "[Method] retrieving sum in 1d vector": {
+        "prefix": "sum_vec_1d",
+        "body": "accumulate(begin(x), end(x), 0)",
+        "description": "sum in 1d vactor"
     },
     "[Method] retrieving sum in stack": {
-        "prefix": "sumstack1d",
+        "prefix": "sum_stack_1d",
         "body": [
             "int sum = 0;",
             "while (!s.empty())",
@@ -134,7 +114,128 @@
             "    s.pop();",
             "}",
         ],
-        "description": "sum in stack"
+        "description": "sum in 1d stack"
+    },
+    "[Method] retrieving cumulative in 1d vector": {
+        "prefix": "cumul_vec_1d",
+        "body": [
+            "vector<int> x(N), cuml(N+1);",
+            "cuml[0] = 0;",
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    cuml[i + 1] = cuml[i] + x[i];",
+            "}"
+        ],
+        "description": "1d cumulative input"
+    },
+    "[Method] not being duplicate in 1d vector": {
+        "prefix": "no_duplicate_vec_1d",
+        "body": [
+            "sort(begin(x), end(x));",
+            "x.erase(unique(begin(x), end(x)), end(x));",
+        ],
+        "description": "no duplicate for 1d vec"
+    },
+    "[Method] inversion num for 1d vector": {
+        "prefix": "inversion_vec_1d",
+        "body": [
+            "// 転倒数を求めたい配列はA(0-indexed)とする。",
+            "BIT bit(N);",
+            "int inv = 0;",
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    inv += i - bit.sum(A[i] + 1);",
+            "    bit.add(A[i] + 1, 1);",
+            "}",
+            "// O(N^2)の求め方",
+            "// int inv = 0;",
+            "// for (int i = 0; i < N; i++)",
+            "//     for (int j = 0; j < N; j++)",
+            "//         if (i < j && A[i] > A[j])",
+            "//             inv++;",
+        ],
+        "description": "inversion num for 1d vec"
+    },
+    "[Frame] loop 1d": {
+        "prefix": "loop_1d",
+        "body": [
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    // logic",
+            "}",
+        ],
+        "description": "1d loop"
+    },
+    "[Frame] loop 2d": {
+        "prefix": "loop_2d",
+        "body": [
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    for (int j = 0; j < M; j++)",
+            "    {",
+            "        // logic",
+            "    }",
+            "}"
+        ],
+        "description": "loop 2d"
+    },
+    "[Frame] loop 3d": {
+        "prefix": "loop_3d",
+        "body": [
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    for (int j = 0; j < M; j++)",
+            "    {",
+            "        for (int k = 0; k < L; k++)",
+            "        {",
+            "            // logic",
+            "        }",
+            "    }",
+            "}"
+        ],
+        "description": "loop 3d"
+    },
+    "[Frame] loop 1d Permutation": {
+        "prefix": "loop_permitation_1d",
+        "body": [
+            "vector<int> P;",
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    P.emplace_back(i);",
+            "}",
+            "do",
+            "{",
+            "    for (int i = 0; i < N; i++)"
+            "    {",
+            "        // logic",
+            "        // int p = P[i];",
+            "    }",
+            "} while (next_permutation(begin(P), end(P)));"
+        ],
+        "description": "loop 1d next_permutation"
+    },
+    "[Frame] loop bit full search": {
+        "prefix": "loop_bit",
+        "body": [
+            "for (int bit = 0; bit < (1 << Nbit); bit++)",
+            "{",
+            "    vector<int> S;",
+            "    for (int i = 0; i < Nbit; i++)",
+            "    {",
+            "        if (bit & (1 << i))",
+            "        { // 列挙に i が含まれるか",
+            "            S.emplace_back(i);",
+            "        }",
+            "    }",
+            "    cout << bit << \": {\";",
+            "    for (int i = 0; i < (int)S.size(); i++)",
+            "    {",
+            "        cout << S[i] << \" \";",
+            "    }",
+            "    cout << \"}\" << endl;",
+            "}",
+        ],
+        "description": "loop bit full search"
     },
     "[Algorithm] game dfs": {
         "prefix": "gamedfs",
@@ -157,5 +258,42 @@
             "}"
         ],
         "description": "game algo"
-    }
+    },
+    "[Class] BIT": {
+        "prefix": "BIT",
+        "body": [
+            "// 1-indexed"
+            "class BIT",
+            "{",
+            "public:",
+            "    BIT(int _size) : size(_size), bit()",
+            "    {",
+            "        bit.resize(_size + 1);",
+            "    }",
+            "",
+            "    // sum from 1 to idx",
+            "    int sum(int idx)",
+            "    {",
+            "        int rtn = 0;",
+            "        for (int i = idx; i > 0; i -= i & -i)",
+            "        {",
+            "            rtn += bit[i];",
+            "        }",
+            "        return rtn;",
+            "    }",
+            "",
+            "    void add(int idx, int num)",
+            "    {",
+            "        for (int i = idx; i <= size; i += i & -i)",
+            "        {",
+            "            bit[i] += num;",
+            "        }",
+            "    }",
+            "",
+            "private:",
+            "    const int size;",
+            "    vector<int> bit;",
+            "};",
+        ],
+    },
 }

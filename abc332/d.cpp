@@ -18,7 +18,6 @@ int main()
     int H, W;
     cin >> H >> W;
     vector<vector<int>> A(H, vector<int>(W)), B(H, vector<int>(W));
-    bool ans;
     rep(i, H)
     {
         rep(j, W)
@@ -36,14 +35,58 @@ int main()
     }
 
     // logic
-    ans = true;
-    rep(i, H)
+    int ans = 100000000;
+    vector<int> P, Q;
+    for (int i = 0; i < H; i++)
     {
-        ans &= equal(A.begin(), A.end(), B.begin(), B.end());
+        P.emplace_back(i);
     }
+    for (int i = 0; i < W; i++)
+    {
+        Q.emplace_back(i);
+    }
+    do
+    {
+        do
+        {
+            bool matched = true;
+            for (int i = 0; i < H; i++)
+            {
+                for (int j = 0; j < W; j++)
+                {
+                    if (A[P[i]][Q[j]] != B[i][j])
+                    {
+                        matched = false;
+                    }
+                }
+            }
+            if (!matched)
+            {
+                continue;
+            }
+            int pinv = 0, qinv = 0;
+            for (int i = 0; i < H; i++)
+                for (int j = 0; j < H; j++)
+                    if (i < j && P[i] > P[j])
+                        pinv++;
+            for (int i = 0; i < W; i++)
+                for (int j = 0; j < W; j++)
+                    if (i < j && Q[i] > Q[j])
+                        qinv++;
+            ans = min(ans, pinv + qinv);
+        } while (next_permutation(begin(Q), end(Q)));
+    } while (next_permutation(begin(P), end(P)));
 
     // output
-    cout << ans;
+    if (ans == 100000000)
+    {
+        cout << -1;
+    }
+    else
+    {
+        cout << ans;
+    }
+
     cout << endl;
     return 0;
 }
