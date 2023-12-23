@@ -13,16 +13,22 @@ typedef long long int int64;
 
 #include <atcoder/modint>
 using mint = atcoder::modint998244353;
-
-int permutationMethod(int n, int r)
+struct Binomial
 {
-    r = n - r;
-    int sum = 1;
-    int i;
-    for (i = n; i >= r + 1; i--)
-        sum *= i;
-    return sum;
-}
+    vector<mint> fac, invfac, inv;
+    Binomial(int n) : fac(n + 1), invfac(n + 1), inv(n + 1)
+    {
+        fac[0] = invfac[0] = inv[0] = 1;
+        for (int i = 1; i <= n; i++)
+            fac[i] = fac[i - 1] * i;
+        invfac[n] = fac[n].inv();
+        for (int i = n - 1; i >= 0; i--)
+        {
+            invfac[i] = invfac[i + 1] * (i + 1);
+            inv[i + 1] = invfac[i + 1] * fac[i];
+        }
+    }
+} C{303030};
 
 int main()
 {
@@ -32,45 +38,27 @@ int main()
     cin >> N >> K;
     vector<int64> A(N);
 
-    rep(i, N)
+    for (int i = 0; i < N; i++)
     {
         cin >> A[i];
     }
-    mint sum = 0;
-    mint ssum = 0;
 
     // logic
+    mint ans = 1;
     for (int i = 0; i < K; i++)
     {
-        map<int64, int> dct;
-        int cnt = 0;
-        for (int j = i; j < N; j = j + K)
+        map<int, int> mp;
+        int all = 0;
+        for (int j = i; j < N; j += K)
         {
-            cnt++;
-            map<int64, int>::iterator itr = dct.find(A[j]);
-            if (itr != dct.end())
-            {
-                dct[A[j]] = dct[A[j]] + 1;
-            }
-            else
-            {
-                dct[A[j]] = 1;
-            }
+            mp[A[j]]++, all++;
         }
-
-        ssum = permutationMethod(cnt, 0);
-        auto iter = dct.begin();
-        while (iter != dct.end())
-        {
-            ssum = ssum / permutationMethod(iter->second, 0);
-            ++iter;
-        }
-
-        sum = sum + ssum;
+        ans *= C.fac[all];
+        for (auto &[_, val] : mp)
+            ans *= C.invfac[val];
     }
-
     // output
-    cout << sum.val();
+    cout << ans.val();
     cout << endl;
     return 0;
 }

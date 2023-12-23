@@ -2,3 +2,5 @@
     (x_1 - x_0) * (y - y_0) = (y_1 - y_0) * (x - x_0)
 外積から角度を求める
     https://atcoder.jp/contests/abc266/editorial/4659
+ユークリッドの互除法の証明
+    https://goukaku-suppli.com/archives/39934
