@@ -14,30 +14,23 @@ int main()
     // input
     int N;
     cin >> N;
-
     // logic
-    vector<int64> rp, ans;
-    rp.emplace_back(1);
-    for (int i = 0; i < 11; i++)
+    // N種類のものから重複を許して3個選ぶ
+    for (int i = 0; i < N + 1; i++)
     {
-        rp.emplace_back(rp[i] * 10 + 1);
-    }
-
-    for (int i = 0; i < 12; i++)
-    {
-        for (int j = 0; j < 12; j++)
+        for (int j = 0; j < N + 1; j++)
         {
-            for (int k = 0; k < 12; k++)
+            for (int k = 0; k < N + 1; k++)
             {
-                ans.emplace_back(rp[i] + rp[j] + rp[k]);
+                if (i + j + k <= N)
+                {
+                    cout << i << " " << j << " " << k << endl;
+                }
             }
         }
     }
 
     // output
-    sort(begin(ans), end(ans));
-    ans.erase(unique(begin(ans), end(ans)), end(ans));
-    cout << ans[N - 1];
     cout << endl;
     return 0;
 }

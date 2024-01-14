@@ -27,7 +27,7 @@
         "prefix": "include_modint998244353",
         "body": [
             "#include<atcoder/modint>",
-            "using mint=atcoder::modint998244353;"
+            "using mint = atcoder::modint998244353;"
         ],
         "description": "include modint998244353"
     },
@@ -35,9 +35,17 @@
         "prefix": "include_modint1000000007",
         "body": [
             "#include<atcoder/modint>",
-            "using mint=atcoder::modint1000000007;"
+            "using mint = atcoder::modint1000000007;"
         ],
         "description": "include modint1000000007"
+    },
+    "[Include] dsu": {
+        "prefix": "include_dsu",
+        "body": [
+            "#include <atcoder/dsu>",
+            "using dsu = atcoder::dsu;"
+        ],
+        "description": "include dsu"
     },
     "[Def] 1d vector": {
         "prefix": "def_vector_1d",
@@ -48,6 +56,21 @@
         "prefix": "def_vector_2d",
         "body": "vector<vector<int>> X(N, vector<int>(M, 0));",
         "description": "define 2d vector"
+    },
+    "[Def] int int map": {
+        "prefix": "def_map_1d",
+        "body": "map<int, int> mp;",
+        "description": "int int map"
+    },
+    "[Def] int int pair": {
+        "prefix": "def_pair",
+        "body": "pair<int, int> pr;",
+        "description": "int int pair"
+    },
+    "[Def] deque": {
+        "prefix": "def_deque",
+        "body": "deque<int> dq;",
+        "description": "int int deque"
     },
     "[Input] each string": {
         "prefix": "input_string_with_vec_int",
@@ -72,6 +95,14 @@
             "}",
         ],
         "description": "manhattan distance"
+    },
+    "[Method] remainder quotient": {
+        "prefix": "remainder_quotient",
+        "body": [
+            "int r = (x % mod + mod) % mod;",
+            "int q = (x - r) / mod;",
+        ],
+        "description": "c++の割り算は、余りが正でないため"
     },
     "[Method] compare 1d vector": {
         "prefix": "equal_vec_1d",
@@ -119,14 +150,27 @@
     "[Method] retrieving cumulative in 1d vector": {
         "prefix": "cumul_vec_1d",
         "body": [
-            "vector<int> x(N), cuml(N+1);",
-            "cuml[0] = 0;",
+            "vector<int> x(N), cuml(N+1, 0);",
             "for (int i = 0; i < N; i++)",
             "{",
             "    cuml[i + 1] = cuml[i] + x[i];",
             "}"
         ],
         "description": "1d cumulative input"
+    },
+    "[Method] sort 1d vector ascending": {
+        "prefix": "sort_vec_1d_ascending",
+        "body": [
+            "sort(begin(x), end(x));"
+        ],
+        "description": "sort for 1d vec"
+    },
+    "[Method] sort 1d vector descending": {
+        "prefix": "sort_vec_1d_descending",
+        "body": [
+            "sort(rbegin(x), rend(x));"
+        ],
+        "description": "sort for 1d vec"
     },
     "[Method] not being duplicate in 1d vector": {
         "prefix": "no_duplicate_vec_1d",
@@ -136,6 +180,20 @@
         ],
         "description": "no duplicate for 1d vec"
     },
+    "[Method] retrieving index at the bound grater than": {
+        "prefix": "upper_bound_index",
+        "body": [
+            "upper_bound(begin(x), end(x), key) - begin(x)",
+        ],
+        "description": "index at the bound grater than"
+    }, 
+    "[Method] retrieving index at the bound grater than or equal": {
+        "prefix": "lower_bound_index",
+        "body": [
+            "lower_bound(begin(x), end(x), key) - begin(x);",
+        ],
+        "description": "index at the bound grater than"
+    }, 
     "[Method] inversion num for 1d vector": {
         "prefix": "inversion_vec_1d",
         "body": [
@@ -225,6 +283,40 @@
         ],
         "description": "loop 1d next_permutation"
     },
+    "[Frame] loop 1d Combination no duplicate": {
+        "prefix": "loop_combination_no_duplicate",
+        "body": [
+            "// N種類のものから重複を許さず3個選ぶ",
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    for (int j = 0; j < i; j++)",
+            "    {",
+            "        for (int k = 0; k < j; k++)",
+            "        {",
+            "            cout << i << \" \" << j << \" \" << k << endl;",
+            "        }",
+            "    }",
+            "}",
+        ],
+        "description": "loop no duplicate combination"
+    },
+    "[Frame] loop 1d Combination duplicate": {
+        "prefix": "loop_combination_duplicate",
+        "body": [
+            "// N種類のものから重複を許して3個選ぶ",
+            "for (int i = 0; i < N; i++)",
+            "{",
+            "    for (int j = 0; j < i + 1; j++)",
+            "    {",
+            "        for (int k = 0; k < j + 1; k++)",
+            "        {",
+            "            cout << i << \" \" << j << \" \" << k << endl;",
+            "        }",
+            "    }",
+            "}",
+        ],
+        "description": "loop duplicate combination"
+    },
     "[Frame] loop bit full search": {
         "prefix": "loop_bit",
         "body": [
@@ -306,6 +398,48 @@
             "    vector<int> bit;",
             "};",
         ],
+    },
+    "[Class] Combination": {
+        "prefix": "Combination",
+        "body": [
+            "class Combination",
+            "{",
+            "public:",
+            "    Combination(int _n, int _r) : n(_n), r(_r), comb()",
+            "    {",
+            "        comb.resize(_r);",
+            "    }",
+            "",
+            "    void for_comb(std::function<void(vector<int>)> f)",
+            "    {",
+            "        __for_comb(n, r, r, f);",
+            "    }",
+            "",
+            "    void __for_comb(int size, int rest, int depth, std::function<void(vector<int>)> f)",
+            "    {",
+            "        if (depth == 0)",
+            "        {",
+            "            f(comb);",
+            "        }",
+            "        else",
+            "        {",
+            "            for (int i = 0; i < size; i++)",
+            "            {",
+            "                comb[rest - depth] = i;",
+            "                __for_comb(i, rest, depth - 1, f);",
+            "            }",
+            "        }",
+            "    }",
+            "",
+            "private:",
+            "    const int n, r;",
+            "    vector<int> comb;",
+            "};",
+            "// 使い方",
+            "// Combination comb(10, 3);",
+            "// comb.for_comb([](vector<int> cmb)",
+            "//                 { cout << cmb[0] << cmb[1] << cmb[2] << endl; });",
+        ]
     },
     "[Data] Binominal": {
         "prefix": "Binominal",
