@@ -63,6 +63,7 @@
     },
     "code-runner.runInTerminal": true,
     "code-runner.executorMap": {
-        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt.out -fdiagnostics-color=always -std=c++17 -I $workspaceRoot/lib/ac-library && $dir$fileNameWithoutExt.out",
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt.out -fdiagnostics-color=always -std=c++20 -I $workspaceRoot/lib/ac-library && $dir$fileNameWithoutExt.out",
     },
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, BreakBeforeBraces: Attach, SpaceBeforeParens: Never, IndentWidth: 4 }"
 }

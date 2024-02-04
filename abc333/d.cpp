@@ -29,16 +29,8 @@ int main()
     }
 
     // logic
-    auto vv = forest.groups();
-    for (int i = 0; i < vv.size(); i++)
-    {
-        auto v = vv[i];
-        for (int j = 0; j < v.size(); j++)
-        {
-            cout << v[j] << " ";
-        }
-        cout << endl;
-    }
+    cout << N - ranges::max(forest.groups() | views::transform([](auto &&v)
+                                                               { return size(v); }));
 
     // output
     cout << endl;

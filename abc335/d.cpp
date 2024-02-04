@@ -12,49 +12,28 @@ int main()
 {
     fastIO();
     // input
-    int N, a, b, c, n;
+    int N;
     cin >> N;
-    a = b = 0;
-    c = 1;
-    n = N;
+    vector<int> dx = {1, 0, -1, 0};
+    vector<int> dy = {0, 1, 0, -1};
+    int c = 1, x = 0, y = 0, di = 0;
 
     // logic
     vector<vector<int>> X(N, vector<int>(N, 0));
-    while (true)
+    X[y][x] = c;
+    while (c < N * N)
     {
-        for (int i = b; i < n; i++)
+        int xx = x + dx[di], yy = y + dy[di];
+        if (xx < N && xx >= 0 && yy < N && yy >= 0 && X[yy][xx] == 0)
         {
-            X[a][i] = c++;
-            b = i;
+            x = xx;
+            y = yy;
+            X[y][x] = ++c;
         }
-        a++;
-        for (int i = a; i < n; i++)
+        else
         {
-            X[i][b] = c++;
-            a = i;
+            di = (di + 1) % 4;
         }
-        b--;
-        for (int i = b; i >= N - n; i--)
-        {
-            X[a][i] = c++;
-            b = i;
-        }
-        a--;
-        n--;
-        for (int i = a; i >= N - n; i--)
-        {
-            X[i][b] = c++;
-            a = i;
-        }
-        b++;
-        if ((a == ((N + 1) / 2) - 1) && (b == ((N + 1) / 2) - 1))
-        {
-            break;
-        }
-        // if (b == (N - 1) || a == (N - 1))
-        // {
-        //     break;
-        // }
     }
 
     // output
