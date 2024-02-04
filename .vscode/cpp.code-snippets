@@ -5,9 +5,9 @@
             "#include <bits/stdc++.h>",
             "using namespace std;",
             "",
-            "#define fastIO()                                                               \\",
-            "    ios_base::sync_with_stdio(false);                                          \\",
-            "    cin.tie(nullptr);                                                          \\",
+            "#define fastIO()                      \\",
+            "    ios_base::sync_with_stdio(false); \\",
+            "    cin.tie(nullptr);                 \\",
             "    cout.tie(nullptr)",
             "#define endl \"\\n\"",
             "typedef long long int int64;",
@@ -28,7 +28,7 @@
     "[Include] modint998244353": {
         "prefix": "include_modint998244353",
         "body": [
-            "#include<atcoder/modint>",
+            "#include <atcoder/modint>",
             "using mint = atcoder::modint998244353;"
         ],
         "description": "include modint998244353"
@@ -36,7 +36,7 @@
     "[Include] modint1000000007": {
         "prefix": "include_modint1000000007",
         "body": [
-            "#include<atcoder/modint>",
+            "#include <atcoder/modint>",
             "using mint = atcoder::modint1000000007;"
         ],
         "description": "include modint1000000007"
@@ -86,7 +86,7 @@
         "prefix": "cin_vector_1d",
         "body": [
             "vector<int> A(N, 0);",
-            "for(int &a: A) cin >> a;",
+            "for(int &a : A) cin >> a;",
         ],
         "description": "int input"
     },
@@ -135,9 +135,19 @@
         ],
         "description": "compare 2d vactor"
     },
+    "[Method] retrieving max general": {
+        "prefix": "max_general",
+        "body": [
+            "int mx = INT_MIN;  // -2e9",
+            "for(int i = 0; i < N; i++) {",
+            "    mx = max(mx, A[i]);",
+            "}",
+        ],
+        "description": "max general"
+    },
     "[Method] retrieving max in 1d vector": {
         "prefix": "max_vec_1d",
-        "body": "*max_element(begin(x), end(x))",
+        "body": "*max_element(begin(A), end(A))",
         "description": "max in 1d vactor"
     },
     "[Method] retrieving max in 2d vector": {
@@ -148,23 +158,33 @@
         ],
         "description": "max in 2d vactor"
     },
+    "[Method] retrieving min general": {
+        "prefix": "min_general",
+        "body": [
+            "int mn = INT_MAX;  // 2e9",
+            "for(int i = 0; i < N; i++) {",
+            "    mn = min(mn, A[i]);",
+            "}",
+        ],
+        "description": "min general"
+    },
     "[Method] retrieving min in 1d vector": {
         "prefix": "min_vec_1d",
-        "body": "*min_element(begin(x), end(x))",
+        "body": "*min_element(begin(A), end(A))",
         "description": "min in 1d vactor"
     },
     "[Method] retrieving sum in 1d vector": {
         "prefix": "sum_vec_1d",
-        "body": "accumulate(begin(x), end(x), 0)",
+        "body": "accumulate(begin(A), end(A), 0)",
         "description": "sum in 1d vactor"
     },
     "[Method] retrieving sum in stack": {
         "prefix": "sum_stack_1d",
         "body": [
             "int sum = 0;",
-            "while(!s.empty()) {",
-            "    sum = sum + s.top();",
-            "    s.pop();",
+            "while(!stk.empty()) {",
+            "    sum = sum + stk.top();",
+            "    stk.pop();",
             "}",
         ],
         "description": "sum in 1d stack"
@@ -172,9 +192,9 @@
     "[Method] retrieving cumulative in 1d vector": {
         "prefix": "cumul_vec_1d",
         "body": [
-            "vector<int> x(N), cuml(N+1, 0);",
+            "vector<int> A(N), cuml(N+1, 0);",
             "for(int i = 0; i < N; i++) {",
-            "    cuml[i + 1] = cuml[i] + x[i];",
+            "    cuml[i + 1] = cuml[i] + A[i];",
             "}"
         ],
         "description": "1d cumulative input"
@@ -182,36 +202,36 @@
     "[Method] sort 1d vector ascending": {
         "prefix": "sort_vec_1d_ascending",
         "body": [
-            "sort(begin(x), end(x));"
+            "sort(begin(A), end(A));"
         ],
         "description": "sort for 1d vec"
     },
     "[Method] sort 1d vector descending": {
         "prefix": "sort_vec_1d_descending",
         "body": [
-            "sort(rbegin(x), rend(x));"
+            "sort(rbegin(A), rend(A));"
         ],
         "description": "sort for 1d vec"
     },
     "[Method] not being duplicate in 1d vector": {
         "prefix": "no_duplicate_vec_1d",
         "body": [
-            "sort(begin(x), end(x));",
-            "x.erase(unique(begin(x), end(x)), end(x));",
+            "sort(begin(A), end(A));",
+            "A.erase(unique(begin(A), end(A)), end(A));",
         ],
         "description": "no duplicate for 1d vec"
     },
     "[Method] retrieving index at the bound grater than": {
         "prefix": "upper_bound_index",
         "body": [
-            "upper_bound(begin(x), end(x), key) - begin(x)",
+            "upper_bound(begin(A), end(A), key) - begin(A)",
         ],
         "description": "index at the bound grater than"
     }, 
     "[Method] retrieving index at the bound grater than or equal": {
         "prefix": "lower_bound_index",
         "body": [
-            "lower_bound(begin(x), end(x), key) - begin(x);",
+            "lower_bound(begin(A), end(A), key) - begin(A);",
         ],
         "description": "index at the bound grater than"
     }, 
@@ -229,8 +249,7 @@
             "// int inv = 0;",
             "// for(int i = 0; i < N; i++)",
             "//     for(int j = 0; j < N; j++)",
-            "//         if(i < j && A[i] > A[j])",
-            "//             inv++;",
+            "//         if(i < j && A[i] > A[j]) inv++;",
         ],
         "description": "inversion num for 1d vec"
     },
