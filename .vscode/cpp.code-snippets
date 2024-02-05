@@ -158,6 +158,19 @@
         ],
         "description": "max in 2d vactor"
     },
+    "[Method] retrieving max in map": {
+        "prefix": "max_map",
+        "body": [
+            "auto pr =",
+            "    *max_element(begin(mp), end(mp), [](const auto &x, const auto &y) {",
+            "        return x.second < y.second ||",
+            "                (x.second == y.second && x.first < y.first);",
+            "    });",
+            "// pr.first;",
+            "// pr.second;",
+        ],
+        "description": "max in map"
+    },
     "[Method] retrieving min general": {
         "prefix": "min_general",
         "body": [
@@ -172,6 +185,19 @@
         "prefix": "min_vec_1d",
         "body": "*min_element(begin(A), end(A))",
         "description": "min in 1d vactor"
+    },
+    "[Method] retrieving min in map": {
+        "prefix": "min_map",
+        "body": [
+            "auto pr =",
+            "    *min_element(begin(mp), end(mp), [](const auto &x, const auto &y) {",
+            "        return x.second < y.second ||",
+            "                (x.second == y.second && x.first < y.first);",
+            "    });",
+            "// pr.first;",
+            "// pr.second;",
+        ],
+        "description": "min in map"
     },
     "[Method] retrieving sum in 1d vector": {
         "prefix": "sum_vec_1d",
