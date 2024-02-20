@@ -247,7 +247,7 @@
     "[Method] sort 1d vector descending": {
         "prefix": "sort_vec_1d_descending",
         "body": [
-            "sort(rbegin(A), rend(A));"
+            "sort(begin(A), end(A), greater<int>());"
         ],
         "description": "sort for 1d vec"
     },
@@ -259,19 +259,19 @@
         ],
         "description": "no duplicate for 1d vec"
     },
-    "[Method] retrieving index at the bound grater than": {
+    "[Method] retrieving index at the bound greater than": {
         "prefix": "upper_bound_index",
         "body": [
             "upper_bound(begin(A), end(A), key) - begin(A)",
         ],
-        "description": "index at the bound grater than"
+        "description": "index at the bound greater than"
     }, 
-    "[Method] retrieving index at the bound grater than or equal": {
+    "[Method] retrieving index at the bound greater than or equal": {
         "prefix": "lower_bound_index",
         "body": [
             "lower_bound(begin(A), end(A), key) - begin(A);",
         ],
-        "description": "index at the bound grater than"
+        "description": "index at the bound greater than"
     }, 
     "[Method] inversion num for 1d vector": {
         "prefix": "inversion_vec_1d",

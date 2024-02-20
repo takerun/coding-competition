@@ -59,7 +59,8 @@
         "forward_list": "cpp",
         "list": "cpp",
         "queue": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "stack": "cpp"
     },
     "code-runner.runInTerminal": true,
     "code-runner.executorMap": {
