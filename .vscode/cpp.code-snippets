@@ -395,17 +395,19 @@
     "[Frame] loop bit full search": {
         "prefix": "loop_bit",
         "body": [
-            "for(int bit = 0; bit < (1 << Nbit); bit++) {",
-            "    vector<int> S;",
-            "    for(int i = 0; i < Nbit; i++) {",
-            "        if(bit & (1 << i)) {",
-            "            // 列挙に i が含まれるか",
-            "            S.emplace_back(i);",
-            "        }",
+            "int Nbit = 5;",
+            "// 3進数全探索の場合、int(pow(3,Nbit))に変換",
+            "for(int i = 0; i < (1 << Nbit); i++) {",
+            "    vector<int> bit(Nbit);",
+            "    int pow = 1;"
+            "    for(int j = 0; j < Nbit; j++) {",
+            "        bit[j] = (i / pow) % 2;  // 3進数全探索の場合、(i/pow)%3に変換",
+            "        pow <<= 1;               // 3進数全探索の場合、pow*=3に変換",
             "    }",
-            "    cout << bit << \": {\";",
-            "    for(int i = 0; i < (int)S.size(); i++) {",
-            "        cout << S[i] << \" \";",
+            "    // logic",
+            "    cout << i << \": {\";",
+            "    for(int j = 0; j < Nbit; j++) {",
+            "        cout << bit[j] << \" \";",
             "    }",
             "    cout << \"}\" << endl;",
             "}",
@@ -536,6 +538,13 @@
             "        }",
             "    }",
             "} C{303030};",
+        ]
+    },
+    "[Data] Direction 4": {
+        "prefix": "data_direction_4",
+        "body": [
+            "// right, down, left, up",
+            "vector<int> dh = {0, -1, 0, 1}, dw = {1, 0, -1, 0};",
         ]
     },
 }
