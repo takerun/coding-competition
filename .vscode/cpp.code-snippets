@@ -173,13 +173,15 @@
     "[Method] retrieving max in map": {
         "prefix": "max_map",
         "body": [
-            "auto pr =",
-            "    *max_element(begin(mp), end(mp), [](const auto &x, const auto &y) {",
-            "        return x.second < y.second ||",
-            "                (x.second == y.second && x.first < y.first);",
-            "    });",
-            "// pr.first;",
-            "// pr.second;",
+            "auto order = [](const auto &left, const auto &right) {",
+            "    // valueが同値なら、keyの小さい要素を取得",
+            "    if(left.second == right.second)",
+            "        return left.first > right.first;",
+            "    else  // valueが大きい要素を取得",
+            "        return left.second < right.second;",
+            "};",
+            "auto pr = *max_element(begin(mp), end(mp), order);",
+            "// pr.first; pr.second;",
         ],
         "description": "max in map"
     },
@@ -201,13 +203,15 @@
     "[Method] retrieving min in map": {
         "prefix": "min_map",
         "body": [
-            "auto pr =",
-            "    *min_element(begin(mp), end(mp), [](const auto &x, const auto &y) {",
-            "        return x.second < y.second ||",
-            "                (x.second == y.second && x.first < y.first);",
-            "    });",
-            "// pr.first;",
-            "// pr.second;",
+            "auto order = [](const auto &left, const auto &right) {",
+            "    // valueが同値なら、keyの小さい要素を取得",
+            "    if(left.second == right.second)",
+            "        return left.first < right.first;",
+            "    else  // valueが小さい要素を取得",
+            "        return left.second < right.second;",
+            "};",
+            "auto pr = *min_element(begin(mp), end(mp), order);",
+            "// pr.first; pr.second;",
         ],
         "description": "min in map"
     },
@@ -251,6 +255,20 @@
         ],
         "description": "sort for 1d vec"
     },
+    "[Method] sort 1d pair flexible order": {
+        "prefix": "sort_pair_1d",
+        "body": [
+            "auto order = [](const auto &left, const auto &right) {",
+            "    // 第一要素が同値なら、第二要素で降順",
+            "    if(left.first == right.first)",
+            "        return left.second > right.second;",
+            "    else  // 第一要素で昇順",
+            "        return left.first < right.first;",
+            "};",
+            "sort(begin(A), end(A), order);",
+        ],
+        "description": "sort for 1d pair"
+    },
     "[Method] not being duplicate in 1d vector": {
         "prefix": "no_duplicate_vec_1d",
         "body": [
@@ -271,7 +289,29 @@
         "body": [
             "lower_bound(begin(A), end(A), key) - begin(A);",
         ],
-        "description": "index at the bound greater than"
+        "description": "index at the bound greater than or equal"
+    }, 
+    "[Method] retrieving index at the bound greater than for pair": {
+        "prefix": "upper_bound_index_pair",
+        "body": [
+            "vector<pair<int, int>> A;",
+            "auto first_less = [](const auto &pr, const auto &mid) {",
+            "    return pr.first < mid;",
+            "};",
+            "upper_bound(begin(A), end(A), key, first_less) - begin(A)",
+        ],
+        "description": "index at the bound greater than for pair"
+    }, 
+    "[Method] retrieving index at the bound greater than or equal for pair": {
+        "prefix": "lower_bound_index_pair",
+        "body": [
+            "vector<pair<int, int>> A;",
+            "auto first_less = [](const auto &pr, const auto &mid) {",
+            "    return pr.first < mid;",
+            "};",
+            "lower_bound(begin(A), end(A), key, first_less) - begin(A);",
+        ],
+        "description": "index at the bound greater than or equal for pair"
     }, 
     "[Method] inversion num for 1d vector": {
         "prefix": "inversion_vec_1d",
@@ -290,6 +330,16 @@
             "//         if(i < j && A[i] > A[j]) inv++;",
         ],
         "description": "inversion num for 1d vec"
+    },
+    "[Method] regular expression": {
+        "prefix": "regex",
+        "body": [
+            "if(regex_match(S, regex(\"A*B*C*\"))) {",
+            "    cout << \"Yes\" << endl;",
+            "} else {",
+            "    cout << \"No\" << endl;",
+            "}",
+        ],
     },
     "[Frame] loop 1d": {
         "prefix": "loop_1d",
@@ -328,7 +378,7 @@
         "prefix": "loop_map",
         "body": [
             "map<int, int> mp;",
-            "for(auto &[key, val] : mp) {",
+            "for(const auto &[key, val] : mp) {",
             "    // logic",
             "}",
         ],
@@ -517,7 +567,7 @@
             "};",
             "// 使い方",
             "// Combination comb(10, 3);",
-            "// comb.for_comb([](vector<int> cmb) {",
+            "// comb.for_comb([](const auto &cmb) {",
             "//     cout << cmb[0] << cmb[1] << cmb[2] << endl;",
             "// });",
         ]
