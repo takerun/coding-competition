@@ -102,17 +102,37 @@
         ],
         "description": "int input"
     },
-    "[Input] each string": {
-        "prefix": "cin_string_with_vec_int",
+    "[Input] string": {
+        "prefix": "cin_string",
         "body": [
             "string S;",
             "cin >> S;",
-            "vector<int> A;",
-            "for(int i = 0; i < S.size(); i++) {",
-            "    A.emplace_back(S[i] - '0');",
-            "}",
         ],
         "description": "each sting input"
+    },
+    "[Convert] char to int": {
+        "prefix": "char_to_int",
+        "body": [
+            "int num = int(S[i] - '0');"
+        ],
+    },
+    "[Convert] split string": {
+        "prefix": "split_string",
+        "body": [
+            "// Sに空白が含まれると正常に動かないので注意",
+            "string S;",
+            "const string sep = \".\";",
+            "auto offset = string::size_type(0);",
+            "while(1) {",
+            "    auto pos = S.find(sep, offset);",
+            "    if(pos == string::npos) {",
+            "        cout << S.substr(offset) << endl;",
+            "        break;",
+            "    }",
+            "    cout << S.substr(offset, pos - offset) << endl;",
+            "    offset = pos + sep.size();",
+            "}",
+        ],
     },
     "[Measure] manhattan distance": {
         "prefix": "measure_manhattan_distance",
@@ -239,8 +259,19 @@
             "    cuml[i + 1] = cuml[i] + A[i];",
             "}"
         ],
-        "description": "1d cumulative input"
+        "description": "1d cumulative"
     },
+    "[Method] counter in 1d vector": {
+        "prefix": "counter_vec_1d",
+        "body": [
+            "vector<int> A;",
+            "map<int, int> cntr;",
+            "for(int i = 0; i < N; i++) {",
+            "    cntr[A[i]]++;",
+            "}",
+        ],
+        "description": "1d counter"
+    },    
     "[Method] sort 1d vector ascending": {
         "prefix": "sort_vec_1d_ascending",
         "body": [
