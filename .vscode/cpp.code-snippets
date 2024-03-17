@@ -2,6 +2,8 @@
     "[Initialization] G++ Code": {
         "prefix": "g++",
         "body": [
+            "// #pragma GCC optimize(\"unroll-loops\")",
+            "// #pragma GCC optimize(\"O3\")",
             "#include <bits/stdc++.h>",
             "using namespace std;",
             "",
@@ -44,10 +46,22 @@
     "[Include] dsu": {
         "prefix": "include_dsu",
         "body": [
+            "// https://atcoder.github.io/ac-library/production/document_en/dsu.html",
             "#include <atcoder/dsu>",
             "using dsu = atcoder::dsu;"
         ],
         "description": "include dsu"
+    },
+    "[Include] segtree": {
+        "prefix": "include_segtree",
+        "body": [
+            "// https://atcoder.github.io/ac-library/production/document_en/segtree.html",
+            "#include <atcoder/segtree>",
+            "int op(int a, int b) { return max(a, b); }  // 演算: a+b, a*b, max(a,b)",
+            "int e() { return 0; }                       // 単位元: 0, 1, 0",
+            "using segtree = atcoder::segtree<int, op, e>;",
+        ],
+        "description": "include segtree"
     },
     "[Def] 1d vector": {
         "prefix": "def_vector_1d",
@@ -59,14 +73,19 @@
         "body": "vector<vector<int>> Mat(H, vector<int>(W, 0));",
         "description": "define 2d vector"
     },
+    "[Def] Nd vector": {
+        "prefix": "def_vector_Nd",
+        "body": "vector State(I, vector(J, vector(K, vector(L, 0))));",
+        "description": "define Nd vector with Template argument deduction"
+    },
     "[Def] int int map": {
         "prefix": "def_map_1d",
-        "body": "map<int, int> mp;",
+        "body": "map<int, int> mp = {{1, 10}, {2, 20}};",
         "description": "int int map"
     },
     "[Def] int int pair": {
         "prefix": "def_pair",
-        "body": "pair<int, int> pr;",
+        "body": "pair<int, int> pr = {1, 10};",
         "description": "int int pair"
     },
     "[Def] deque": {
@@ -495,6 +514,30 @@
         ],
         "description": "loop bit full search"
     },
+    "[Algorithm] bfs": {
+        "prefix": "bfs",
+        "body": [
+            "// define Value & State of 2d",
+            "vector<vector<int>> Val(H, vector<int>(W, 0));",
+            "vector<int> initS = {0, 0};",
+            "Val[initS[0]][initS[1]] = 0;",
+            "// define queue",
+            "queue<vector<int>> Q;",
+            "Q.push(initS);",
+            "while(!Q.empty()) {",
+            "    // pop queue",
+            "    vector<int> q = Q.front();",
+            "    Q.pop();",
+            "",
+            "    // evaluate state",
+            "    if(q == {1, 1}) {",
+            "        // push state",
+            "        Q.push({0, 0});",
+            "    }",
+            "}",
+        ],
+        "description": "bfs",
+    },
     "[Algorithm] game dfs": {
         "prefix": "gamedfs",
         "body": [
@@ -624,8 +667,10 @@
     "[Data] Direction 4": {
         "prefix": "data_direction_4",
         "body": [
-            "// right, down, left, up",
-            "vector<int> dh = {0, -1, 0, 1}, dw = {1, 0, -1, 0};",
+            "int dc = 0;",
+            "const string rotation = \"URDL\";",
+            "map<char, const int> dh = {{'R', 0}, {'L', 0}, {'U', -1}, {'D', 1}},",
+            "                     dw = {{'R', 1}, {'L', -1}, {'U', 0}, {'D', 0}};",
         ]
     },
 }
