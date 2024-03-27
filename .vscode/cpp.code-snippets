@@ -562,6 +562,21 @@
         ],
         "description": "loop bit full search"
     },
+    "[Algorithm] binary search": {
+        "prefix": "binary_search",
+        "body":[
+            "auto f = [&](int64 x) { return x * x; };  // 単調非減少な関数f",
+            "int64 l = 0, r = 2e18;",
+            "while((l + 1) < r) {",
+            "    int64 mid = (l + r) / 2;",
+            "    if(f(mid) < K)  // upper_boundの場合、f(mid)<=K",
+            "        l = mid;",
+            "    else",
+            "        r = mid;",
+            "}",
+        ],
+        "description": "binary search for a function",
+    },
     "[Algorithm] dfs": {
         "prefix": "dfs",
         "body": [
