@@ -234,6 +234,11 @@
         ],
         "description": "compare 2d vactor"
     },
+    "[Method] retrieving index in 1d vector":{
+        "prefix": "find_vec_1d",
+        "body": "int id = find(begin(A), end(A), key) - begin(A);",
+        "description": "index in 1d vector",
+    },
     "[Method] retrieving max general": {
         "prefix": "max_general",
         "body": [
@@ -472,6 +477,16 @@
         ],
         "description": "loop 3d"
     },
+    "[Frame] loop set": {
+        "prefix": "loop_set",
+        "body": [
+            "set<int> st;",
+            "for(const auto &s : st) {",
+            "    // logic",
+            "}",
+        ],
+        "description": "loop map"
+    },
     "[Frame] loop map<int, int>": {
         "prefix": "loop_map",
         "body": [
@@ -690,11 +705,11 @@
             "// 負の閉路がなければ実行可能",
             "// distances は頂点数と同じサイズ, 全要素 INF で初期化しておく",
             "// Graph G(V);",
-            "//   G[from].push_back({to, cost});",
+            "//   G[from].emplace_back({to, cost});",
             "// vector<int64> d(V, INF);",
             "// Dijkstra(G, d, 0);",
             "// cout << d[V - 1];",
-            "void Dijkstra(const Graph& graph, vector<long long>& distances,",
+            "void Dijkstra(const Graph& graph, vector<int64>& distances,",
             "              int startIndex) {",
             "    // 「現時点での最短距離, 頂点」の順に取り出す priority_queue",
             "    // デフォルトの priority_queue は降順に取り出すため greater を使う",
@@ -702,7 +717,7 @@
             "    q.emplace((distances[startIndex] = 0), startIndex);",
             "",
             "    while(!q.empty()) {",
-            "        const long long distance = q.top().first;",
+            "        const int64 distance = q.top().first;",
             "        const int from = q.top().second;",
             "        q.pop();",
             "",
@@ -713,8 +728,10 @@
             "",
             "        // 現在の頂点からの各辺について",
             "        for(const auto& edge : graph[from]) {",
+            "            // 連結がなければスキップする",
+            "",
             "            // to までの新しい距離",
-            "            const long long d = (distances[from] + edge.cost);",
+            "            const int64 d = (distances[from] + edge.cost);",
             "",
             "            // d が現在の記録より小さければ更新",
             "            if(d < distances[edge.to]) {",
