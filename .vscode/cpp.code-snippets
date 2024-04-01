@@ -25,7 +25,6 @@
             "    return 0;",
             "}",
         ],
-        "description": "G++ Code Setup"
     },
     "[Include] modint998244353": {
         "prefix": "include_modint998244353",
@@ -33,7 +32,6 @@
             "#include <atcoder/modint>",
             "using mint = atcoder::modint998244353;"
         ],
-        "description": "include modint998244353"
     },
     "[Include] modint1000000007": {
         "prefix": "include_modint1000000007",
@@ -41,7 +39,6 @@
             "#include <atcoder/modint>",
             "using mint = atcoder::modint1000000007;"
         ],
-        "description": "include modint1000000007"
     },
     "[Include] dsu": {
         "prefix": "include_dsu",
@@ -64,7 +61,6 @@
             "// 使い方",
             "// segtree seg(N);",
         ],
-        "description": "include segtree"
     },
     "[Include] lazy segtree": {
         "prefix": "include_lazy_segtree",
@@ -101,45 +97,38 @@
             "// vector<S> v(N, {0, 1});",
             "// lazy_segtree seg(v);",
         ],
-        "description": "include lazy segtree"
     },
     "[Def] 1d vector": {
         "prefix": "def_vector_1d",
         "body": "vector<int> A(N, 0);",
-        "description": "define 1d vector"
     },
     "[Def] 2d vector": {
         "prefix": "def_vector_2d",
         "body": "vector<vector<int>> Mat(H, vector<int>(W, 0));",
-        "description": "define 2d vector"
     },
     "[Def] Nd vector": {
         "prefix": "def_vector_Nd",
         "body": "vector State(I, vector(J, vector(K, vector(L, 0))));",
         "description": "define Nd vector with Template argument deduction"
     },
-    "[Def] int int map": {
-        "prefix": "def_map_1d",
-        "body": "map<int, int> mp = {{1, 10}, {2, 20}};",
-        "description": "int int map"
-    },
-    "[Def] int int pair": {
+    "[Def] pair": {
         "prefix": "def_pair",
         "body": "pair<int, int> pr = {1, 10};",
-        "description": "int int pair"
     },
-    "[Def] int priority_queue": {
+    "[Def] map": {
+        "prefix": "def_map_1d",
+        "body": "map<int, int> mp = {{1, 10}, {2, 20}};",
+    },
+    "[Def] priority_queue": {
         "prefix": "def_priority_queue",
         "body": [
             "priority_queue<int> q;  // max",
             "priority_queue<int, vector<int>, greater<int>> q;  // min",
         ],
-        "description": "int int pair"
     },
     "[Def] deque": {
         "prefix": "def_deque",
         "body": "deque<int> dq;",
-        "description": "int int deque"
     },
     "[Def] lambda function": {
         "prefix": "def_func",
@@ -151,7 +140,6 @@
             "        return a - b;",
             "};",
         ],
-        "description": "lambda function"
     },
     "[Input] int": {
         "prefix": "cin_int",
@@ -159,7 +147,6 @@
             "int N;",
             "cin >> N;",
         ],
-        "description": "int input"
     },
     "[Input] 1d vector": {
         "prefix": "cin_vector_1d",
@@ -167,7 +154,6 @@
             "vector<int> A(N, 0);",
             "for(int &a : A) cin >> a;",
         ],
-        "description": "int input"
     },
     "[Input] string": {
         "prefix": "cin_string",
@@ -175,10 +161,9 @@
             "string S;",
             "cin >> S;",
         ],
-        "description": "each sting input"
     },
     "[Convert] char to int": {
-        "prefix": "char_to_int",
+        "prefix": "convert_char_to_int",
         "body": [
             "int num = int(S[i] - '0');"
         ],
@@ -201,69 +186,94 @@
             "}",
         ],
     },
-    "[Measure] manhattan distance": {
-        "prefix": "measure_manhattan_distance",
+    "[Method] calculate remainder & quotient": {
+        "prefix": "calc_remainder_quotient",
+        "body": [
+            "int r = (x % mod + mod) % mod;",
+            "int q = (x - r) / mod;",
+        ],
+    },
+    "[Method] calculate sum in 1d vector": {
+        "prefix": "calc_sum_vec_1d",
+        "body": "accumulate(begin(A), end(A), 0)",
+    },
+    "[Method] calculate sum in stack": {
+        "prefix": "calc_sum_stack_1d",
+        "body": [
+            "int sum = 0;",
+            "while(!stk.empty()) {",
+            "    sum = sum + stk.top();",
+            "    stk.pop();",
+            "}",
+        ],
+    },
+    "[Measure] calculate manhattan distance": {
+        "prefix": "calc_manhattan_distance",
         "body": [
             "int distance = 0;",
             "for(int i = 0; i < N; i++) {",
             "    distance += abs(A[i] - B[i]);",
             "}",
         ],
-        "description": "manhattan distance"
     },
-    "[Method] remainder quotient": {
-        "prefix": "remainder_quotient",
+    "[Measure] calculate volume of common volume of 2 cube": {
+        "prefix": "calc_volume_2cube",
         "body": [
-            "int r = (x % mod + mod) % mod;",
-            "int q = (x - r) / mod;",
+            "using T = int;",
+            "auto volumeCube = [&](T blX1, T blY1, T blZ1, T trX1, T trY1, T trZ1,",
+            "                        T blX2, T blY2, T blZ2, T trX2, T trY2, T trZ2) {",
+            "    return max(0, min(trX1, trX2) - max(blX1, blX2)) *",
+            "            max(0, min(trY1, trY2) - max(blY1, blY2)) *",
+            "            max(0, min(trZ1, trZ2) - max(blZ1, blZ2));",
+            "};",
         ],
-        "description": "c++の割り算は、余りが正でないため"
+        "description": "blはbottom left、trはtop rightの意味。3つの共通部分の体積を求めたい場合はmin({trX1,trX2,trX3})のように",
     },
-    "[Method] compare 1d vector": {
-        "prefix": "equal_vec_1d",
+    "[Method] equal to 1d vector": {
+        "prefix": "is_equal_vec_1d",
         "body": "equal(begin(A), end(A), begin(B), end(B));",
-        "description": "compare 1d vactor"
     },
-    "[Method] compare 2d vector": {
-        "prefix": "equal_vec_2d",
+    "[Method] equal to 2d vector": {
+        "prefix": "is_equal_vec_2d",
         "body": [
             "bool ans = true;",
             "for(int i = 0; i < N; i++) {",
             "    ans &= equal(begin(A), end(A), begin(B), end(B));",
             "}",
         ],
-        "description": "compare 2d vactor"
     },
-    "[Method] retrieving index in 1d vector":{
-        "prefix": "find_vec_1d",
-        "body": "int id = find(begin(A), end(A), key) - begin(A);",
-        "description": "index in 1d vector",
+    "[Method] is palindrome": {
+        "prefix": "is_kaibun",
+        "body": [
+            "auto check = [&](int64 a) {",
+            "    string s = to_string(a);",
+            "    return s == string(rbegin(s), rend(s));",
+            "};",
+        ],
+        "description": "回文を判定する"
     },
-    "[Method] retrieving max general": {
-        "prefix": "max_general",
+    "[Method] get max value generally": {
+        "prefix": "val_max_general",
         "body": [
             "int mx = INT_MIN;  // -2e9",
             "for(int i = 0; i < N; i++) {",
             "    mx = max(mx, A[i]);",
             "}",
         ],
-        "description": "max general"
     },
-    "[Method] retrieving max in 1d vector": {
-        "prefix": "max_vec_1d",
+    "[Method] get max value in 1d vector": {
+        "prefix": "val_max_vec_1d",
         "body": "*max_element(begin(A), end(A))",
-        "description": "max in 1d vactor"
     },
-    "[Method] retrieving max in 2d vector": {
-        "prefix": "max_vec_2d",
+    "[Method] get max value in 2d vector": {
+        "prefix": "val_vec_2d",
         "body": [
             "# 一番長い配列の配列数を返す",
             "ranges::max(vec_2d | views::transform([](auto &&v){ return size(v); }))",
         ],
-        "description": "max in 2d vactor"
     },
-    "[Method] retrieving max in map": {
-        "prefix": "max_map",
+    "[Method] get max value in map": {
+        "prefix": "val_max_map",
         "body": [
             "auto order = [](const auto &left, const auto &right) {",
             "    // valueが同値なら、keyの小さい要素を取得",
@@ -275,25 +285,22 @@
             "auto pr = *max_element(begin(mp), end(mp), order);",
             "// pr.first; pr.second;",
         ],
-        "description": "max in map"
     },
-    "[Method] retrieving min general": {
-        "prefix": "min_general",
+    "[Method] get min value generally": {
+        "prefix": "val_min_general",
         "body": [
             "int mn = INT_MAX;  // 2e9",
             "for(int i = 0; i < N; i++) {",
             "    mn = min(mn, A[i]);",
             "}",
         ],
-        "description": "min general"
     },
-    "[Method] retrieving min in 1d vector": {
-        "prefix": "min_vec_1d",
+    "[Method] get min value in 1d vector": {
+        "prefix": "val_min_vec_1d",
         "body": "*min_element(begin(A), end(A))",
-        "description": "min in 1d vactor"
     },
-    "[Method] retrieving min in map": {
-        "prefix": "min_map",
+    "[Method] get min value in map": {
+        "prefix": "val_min_map",
         "body": [
             "auto order = [](const auto &left, const auto &right) {",
             "    // valueが同値なら、keyの小さい要素を取得",
@@ -305,25 +312,44 @@
             "auto pr = *min_element(begin(mp), end(mp), order);",
             "// pr.first; pr.second;",
         ],
-        "description": "min in map"
     },
-    "[Method] retrieving sum in 1d vector": {
-        "prefix": "sum_vec_1d",
-        "body": "accumulate(begin(A), end(A), 0)",
-        "description": "sum in 1d vactor"
+    "[Method] get index in 1d vector":{
+        "prefix": "index_vec_1d",
+        "body": "int id = find(begin(A), end(A), key) - begin(A);",
     },
-    "[Method] retrieving sum in stack": {
-        "prefix": "sum_stack_1d",
+    "[Method] get index at the bound greater than": {
+        "prefix": "index_upper_bound_index",
         "body": [
-            "int sum = 0;",
-            "while(!stk.empty()) {",
-            "    sum = sum + stk.top();",
-            "    stk.pop();",
-            "}",
+            "upper_bound(begin(A), end(A), key) - begin(A)",
         ],
-        "description": "sum in 1d stack"
-    },
-    "[Method] retrieving cumulative in 1d vector": {
+    }, 
+    "[Method] get index at the bound greater than or equal": {
+        "prefix": "index_lower_bound_index",
+        "body": [
+            "lower_bound(begin(A), end(A), key) - begin(A);",
+        ],
+    }, 
+    "[Method] get index at the bound greater than for pair": {
+        "prefix": "index_upper_bound_index_pair",
+        "body": [
+            "vector<pair<int, int>> A;",
+            "auto first_less = [](const auto &pr, const auto &mid) {",
+            "    return pr.first < mid;",
+            "};",
+            "upper_bound(begin(A), end(A), key, first_less) - begin(A)",
+        ],
+    }, 
+    "[Method] get index at the bound greater than or equal for pair": {
+        "prefix": "index_lower_bound_index_pair",
+        "body": [
+            "vector<pair<int, int>> A;",
+            "auto first_less = [](const auto &pr, const auto &mid) {",
+            "    return pr.first < mid;",
+            "};",
+            "lower_bound(begin(A), end(A), key, first_less) - begin(A);",
+        ],
+    }, 
+    "[Method] get cumulative in 1d vector": {
         "prefix": "cumul_vec_1d",
         "body": [
             "vector<int> A(N), cuml(N+1, 0);",
@@ -331,9 +357,8 @@
             "    cuml[i + 1] = cuml[i] + A[i];",
             "}"
         ],
-        "description": "1d cumulative"
     },
-    "[Method] counter in 1d vector": {
+    "[Method] get counter in 1d vector": {
         "prefix": "counter_vec_1d",
         "body": [
             "vector<int> A;",
@@ -342,81 +367,8 @@
             "    cntr[A[i]]++;",
             "}",
         ],
-        "description": "1d counter"
-    },    
-    "[Method] sort 1d vector ascending": {
-        "prefix": "sort_vec_1d_ascending",
-        "body": [
-            "sort(begin(A), end(A));"
-        ],
-        "description": "sort for 1d vec"
     },
-    "[Method] sort 1d vector descending": {
-        "prefix": "sort_vec_1d_descending",
-        "body": [
-            "sort(begin(A), end(A), greater<int>());"
-        ],
-        "description": "sort for 1d vec"
-    },
-    "[Method] sort 1d pair flexible order": {
-        "prefix": "sort_pair_1d",
-        "body": [
-            "auto order = [](const auto &left, const auto &right) {",
-            "    // 第一要素が同値なら、第二要素で降順",
-            "    if(left.first == right.first)",
-            "        return left.second > right.second;",
-            "    else  // 第一要素で昇順",
-            "        return left.first < right.first;",
-            "};",
-            "sort(begin(A), end(A), order);",
-        ],
-        "description": "sort for 1d pair"
-    },
-    "[Method] not being duplicate in 1d vector": {
-        "prefix": "no_duplicate_vec_1d",
-        "body": [
-            "sort(begin(A), end(A));",
-            "A.erase(unique(begin(A), end(A)), end(A));",
-        ],
-        "description": "no duplicate for 1d vec"
-    },
-    "[Method] retrieving index at the bound greater than": {
-        "prefix": "upper_bound_index",
-        "body": [
-            "upper_bound(begin(A), end(A), key) - begin(A)",
-        ],
-        "description": "index at the bound greater than"
-    }, 
-    "[Method] retrieving index at the bound greater than or equal": {
-        "prefix": "lower_bound_index",
-        "body": [
-            "lower_bound(begin(A), end(A), key) - begin(A);",
-        ],
-        "description": "index at the bound greater than or equal"
-    }, 
-    "[Method] retrieving index at the bound greater than for pair": {
-        "prefix": "upper_bound_index_pair",
-        "body": [
-            "vector<pair<int, int>> A;",
-            "auto first_less = [](const auto &pr, const auto &mid) {",
-            "    return pr.first < mid;",
-            "};",
-            "upper_bound(begin(A), end(A), key, first_less) - begin(A)",
-        ],
-        "description": "index at the bound greater than for pair"
-    }, 
-    "[Method] retrieving index at the bound greater than or equal for pair": {
-        "prefix": "lower_bound_index_pair",
-        "body": [
-            "vector<pair<int, int>> A;",
-            "auto first_less = [](const auto &pr, const auto &mid) {",
-            "    return pr.first < mid;",
-            "};",
-            "lower_bound(begin(A), end(A), key, first_less) - begin(A);",
-        ],
-        "description": "index at the bound greater than or equal for pair"
-    }, 
-    "[Method] inversion num for 1d vector": {
+    "[Method] get inversion num for 1d vector": {
         "prefix": "inversion_vec_1d",
         "body": [
             "// 転倒数を求めたい配列はA(0-indexed)とする。",
@@ -432,7 +384,39 @@
             "//     for(int j = 0; j < N; j++)",
             "//         if(i < j && A[i] > A[j]) inv++;",
         ],
-        "description": "inversion num for 1d vec"
+    },  
+    "[Method] sort 1d vector ascending": {
+        "prefix": "sort_vec_1d_ascending",
+        "body": [
+            "sort(begin(A), end(A));"
+        ],
+    },
+    "[Method] sort 1d vector descending": {
+        "prefix": "sort_vec_1d_descending",
+        "body": [
+            "sort(begin(A), end(A), greater<int>());"
+        ],
+    },
+    "[Method] sort 1d pair flexible order": {
+        "prefix": "sort_pair_1d",
+        "body": [
+            "auto order = [](const auto &left, const auto &right) {",
+            "    // 第一要素が同値なら、第二要素で降順",
+            "    if(left.first == right.first)",
+            "        return left.second > right.second;",
+            "    else  // 第一要素で昇順",
+            "        return left.first < right.first;",
+            "};",
+            "sort(begin(A), end(A), order);",
+        ],
+    },
+    "[Method] not being duplicate in 1d vector": {
+        "prefix": "no_duplicate_vec_1d",
+        "body": [
+            "sort(begin(A), end(A));",
+            "A.erase(unique(begin(A), end(A)), end(A));",
+        ],
+        "description": "重複をなくす"
     },
     "[Method] regular expression": {
         "prefix": "regex",
@@ -451,7 +435,6 @@
             "    // logic",
             "}",
         ],
-        "description": "1d loop"
     },
     "[Frame] loop 2d": {
         "prefix": "loop_2d",
@@ -462,7 +445,6 @@
             "    }",
             "}"
         ],
-        "description": "loop 2d"
     },
     "[Frame] loop 3d": {
         "prefix": "loop_3d",
@@ -475,7 +457,6 @@
             "    }",
             "}"
         ],
-        "description": "loop 3d"
     },
     "[Frame] loop set": {
         "prefix": "loop_set",
@@ -485,7 +466,6 @@
             "    // logic",
             "}",
         ],
-        "description": "loop map"
     },
     "[Frame] loop map<int, int>": {
         "prefix": "loop_map",
@@ -495,7 +475,6 @@
             "    // logic",
             "}",
         ],
-        "description": "loop map"
     },
     "[Frame] loop 1d Permutation": {
         "prefix": "loop_permitation_1d",
@@ -511,7 +490,6 @@
             "    }",
             "} while(next_permutation(begin(P), end(P)));"
         ],
-        "description": "loop 1d next_permutation"
     },
     "[Frame] loop 1d Combination no duplicate": {
         "prefix": "loop_combination_no_duplicate",
@@ -532,7 +510,6 @@
             "//     }",
             "// }",
         ],
-        "description": "loop no duplicate combination"
     },
     "[Frame] loop 1d Combination duplicate": {
         "prefix": "loop_combination_duplicate",
@@ -553,7 +530,6 @@
             "//     }",
             "// }",
         ],
-        "description": "loop duplicate combination"
     },
     "[Frame] loop bit full search": {
         "prefix": "loop_bit",
@@ -575,7 +551,6 @@
             "    cout << \"}\" << endl;",
             "}",
         ],
-        "description": "loop bit full search"
     },
     "[Algorithm] binary search": {
         "prefix": "binary_search",
@@ -620,7 +595,6 @@
             "    // return false",
             "}",
         ],
-        "description": "dfs",
     },
     "[Algorithm] bfs": {
         "prefix": "bfs",
@@ -644,7 +618,6 @@
             "    }",
             "}",
         ],
-        "description": "bfs",
     },
     "[Algorithm] game dfs": {
         "prefix": "gamedfs",
@@ -666,7 +639,6 @@
             "    return res;",
             "}"
         ],
-        "description": "game algo"
     },
     "[Algorithm] imos":{
         "prefix": "imos",
@@ -688,7 +660,6 @@
             "}",
             "cout << mn;",
         ],
-        "description": "imos",
     },
     "[Algorithm] Dijkstra":{
         "prefix": "dijkstra",
@@ -741,7 +712,6 @@
             "    }",
             "}",
         ],
-        "description": "dijkstra",
     },
     "[Class] BIT": {
         "prefix": "BIT",
