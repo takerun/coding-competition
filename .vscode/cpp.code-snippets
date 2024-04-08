@@ -265,13 +265,6 @@
         "prefix": "val_max_vec_1d",
         "body": "*max_element(begin(A), end(A))",
     },
-    "[Method] get max value in 2d vector": {
-        "prefix": "val_vec_2d",
-        "body": [
-            "# 一番長い配列の配列数を返す",
-            "ranges::max(vec_2d | views::transform([](auto &&v){ return size(v); }))",
-        ],
-    },
     "[Method] get max value in map": {
         "prefix": "val_max_map",
         "body": [
@@ -312,6 +305,11 @@
             "auto pr = *min_element(begin(mp), end(mp), order);",
             "// pr.first; pr.second;",
         ],
+    },
+    "[Method] get max length 1d in 2d vector": {
+        "prefix": "get_max_length_vec_2d",
+        "body": "ranges::max(vec_2d | views::transform([](auto &&v){ return size(v); }))",
+        "description": "一番長い配列の配列数を返す",
     },
     "[Method] get index in 1d vector":{
         "prefix": "index_vec_1d",
