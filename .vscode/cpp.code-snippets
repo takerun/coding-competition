@@ -252,6 +252,17 @@
         ],
         "description": "回文を判定する"
     },
+    "[Method] is bit on": {
+        "prefix": "is_bit_on",
+        "body": [
+            "for(int i = 0; i < N; i++) {",
+            "    if(x & (1LL << i)) {",
+            "        // logic",
+            "    }",
+            "}",
+        ],
+        "description": "回文を判定する"
+    },
     "[Method] get max value generally": {
         "prefix": "val_max_general",
         "body": [
@@ -408,8 +419,8 @@
             "sort(begin(A), end(A), order);",
         ],
     },
-    "[Method] not being duplicate in 1d vector": {
-        "prefix": "no_duplicate_vec_1d",
+    "[Method] erase duplicate in 1d vector": {
+        "prefix": "erase_duplicate_vec_1d",
         "body": [
             "sort(begin(A), end(A));",
             "A.erase(unique(begin(A), end(A)), end(A));",
@@ -453,6 +464,14 @@
             "            // logic",
             "        }",
             "    }",
+            "}"
+        ],
+    },
+    "[Frame] loop 2bit": {
+        "prefix": "loop_2bit",
+        "body": [
+            "for(int64 i = 1; i <= (1LL << N); i<<=1) {",
+            "    // logic"
             "}"
         ],
     },
