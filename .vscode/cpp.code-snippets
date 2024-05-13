@@ -40,6 +40,15 @@
             "using mint = atcoder::modint1000000007;"
         ],
     },
+    "[Include] bit": {
+        "prefix": "include_bit",
+        "body": [
+            "// https://atcoder.github.io/ac-library/production/document_ja/fenwicktree.html",
+            "#include <atcoder/fenwicktree>",
+            "using fenwick_tree = atcoder::fenwick_tree<int>;"
+        ],
+        "description": "include Binary-Indexed tree(Fenwick tree)"
+    },
     "[Include] dsu": {
         "prefix": "include_dsu",
         "body": [
@@ -381,11 +390,11 @@
         "prefix": "inversion_vec_1d",
         "body": [
             "// 転倒数を求めたい配列はA(0-indexed)とする。",
-            "BIT bit(N);",
-            "int inv = 0;",
+            "fenwick_tree bit(N);",
+            "int64 inv = 0;",
             "for(int i = 0; i < N; i++) {",
-            "    inv += i - bit.sum(A[i] + 1);",
-            "    bit.add(A[i] + 1, 1);",
+            "    inv += i - bit.sum(0, A[i] + 1);",
+            "    bit.add(A[i], 1);",
             "}",
             "// O(N^2)の求め方",
             "// int inv = 0;",
@@ -616,7 +625,7 @@
     "[Algorithm] bfs": {
         "prefix": "bfs",
         "body": [
-            "// define Value & State of 2d",
+            "// define Value & initail State",
             "vector<vector<int>> Val(H, vector<int>(W, 0));",
             "vector<int> initS = {0, 0};",
             "Val[initS[0]][initS[1]] = 0;",
@@ -629,9 +638,13 @@
             "    Q.pop();",
             "",
             "    // evaluate state",
-            "    if(q == {1, 1}) {",
+            "    for(int i = 0; i < N; i++) {",
+            "        // next state",
+            "        vector<int> nq = {q[0] + i, q[1] + i};"
             "        // push state",
-            "        Q.push({0, 0});",
+            "        if(nq[0] <= H and nq[i] <= W) {"
+            "            Q.push(nq);",
+            "        }"
             "    }",
             "}",
         ],
@@ -730,36 +743,6 @@
             "}",
         ],
     },
-    "[Class] BIT": {
-        "prefix": "BIT",
-        "body": [
-            "// 1-indexed",
-            "class BIT {",
-            "  public:",
-            "    BIT(int _size) : size(_size), bit() { bit.resize(_size + 1); }",
-            "",
-            "    // sum from 1 to idx",
-            "    int sum(int idx) {",
-            "        int rtn = 0;",
-            "        for(int i = idx; i > 0; i -= i & -i) {",
-            "            rtn += bit[i];",
-            "        }",
-            "        return rtn;",
-            "    }",
-            "",
-            "    void add(int idx, int num) {",
-            "        for(int i = idx; i <= size; i += i & -i) {",
-            "            bit[i] += num;",
-            "        }",
-            "    }",
-            "",
-            "  private:",
-            "    const int size;",
-            "    vector<int> bit;",
-            "};",
-        ],
-        "description": "Binary-Indexed tree(Fenwick tree)",
-    },
     "[Class] Combination": {
         "prefix": "Combination",
         "body": [
@@ -816,10 +799,8 @@
     "[Data] Direction 4": {
         "prefix": "data_direction_4",
         "body": [
-            "int dc = 0;",
-            "const string rotation = \"URDL\";",
-            "map<char, const int> dh = {{'R', 0}, {'L', 0}, {'U', -1}, {'D', 1}},",
-            "                     dw = {{'R', 1}, {'L', -1}, {'U', 0}, {'D', 0}};",
+            "vector<int> rotation = {2, 0, 3, 1};                 // URDL",
+            "vector<int> dh = {0, 0, -1, 1}, dw = {1, -1, 0, 0};  // RLUD",
         ]
     },
 }
