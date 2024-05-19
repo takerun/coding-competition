@@ -12,6 +12,7 @@
             "    cin.tie(nullptr);                 \\",
             "    cout.tie(nullptr)",
             "#define endl \"\\n\"",
+            "void Yes(bool a) { cout << (a ? \"Yes\" : \"No\") << endl; }"
             "typedef long long int int64;",
             "",
             "int main() {",
@@ -21,7 +22,7 @@
             "    // logic",
             "",
             "    // output",
-            "    cout << endl;",
+            "",            
             "    return 0;",
             "}",
         ],
@@ -67,7 +68,7 @@
             "S op(S a, S b) { return max(a, b); }  // 取得演算: a+b, a*b, max(a,b)",
             "S e() { return 0; }                   // 単位元: 0, 1, -INF",
             "using segtree = atcoder::segtree<S, op, e>;",
-            "// 使い方",
+            "// usage:",
             "// segtree seg(N);",
         ],
     },
@@ -87,7 +88,7 @@
             "F id() { return 0; }                       // 恒等写像:",
             "using lazy_segtree =",
             "    atcoder::lazy_segtree<S, op, e, F, mapping, composition, id>;",
-            "// 使い方",
+            "// usage1:",
             "// lazy_segtree seg(N);",
             "// 区間加算、区間和取得",
             "// struct S {",
@@ -102,8 +103,8 @@
             "// F id() { return 0; }",
             "// using lazy_segtree =",
             "//     atcoder::lazy_segtree<S, op, e, F, mapping, composition, id>;",
-            "// 使い方",
-            "// vector<S> v(N, {0, 1});",
+            "// usage2:",
+            "// vector<S> v(N, {0, 1, 2});",
             "// lazy_segtree seg(v);",
         ],
     },
@@ -161,7 +162,7 @@
         "prefix": "cin_vector_1d",
         "body": [
             "vector<int> A(N, 0);",
-            "for(int &a : A) cin >> a;",
+            "for(auto &a : A) cin >> a;",
         ],
     },
     "[Input] string": {
@@ -169,6 +170,26 @@
         "body": [
             "string S;",
             "cin >> S;",
+        ],
+    },
+    "[Input] tree": {
+        "prefix": "cin_tree",
+        "body": [
+            "vector<vector<int>> tree(N);",
+            "for(int i = 0; i < M; i++) {",
+            "    int a, b;",
+            "    cin >> a >> b;",
+            "    a--, b--;",
+            "    tree[a].push_back(b);",
+            "    tree[b].push_back(a);",
+            "}",
+        ],
+    },
+    "[Output] 1d vector": {
+        "prefix": "cout_vector_1d",
+        "body": [
+            "for(const auto &a : A) cout << a << \" \";",
+            "cout << endl;",
         ],
     },
     "[Convert] char to int": {
@@ -593,7 +614,7 @@
         ],
         "description": "binary search for a function",
     },
-    "[Algorithm] dfs": {
+    "[Algorithm] general dfs": {
         "prefix": "dfs",
         "body": [
             "map<int, int> m;",
@@ -622,6 +643,51 @@
             "}",
         ],
     },
+    "[Algorithm] tree dfs": {
+        "prefix": "dfs_tree",
+        "body": [
+            "// outer variable: vector<vector<int>> tree, int64",
+            "vector<int64> score_subtree(N, 0LL);",
+            "auto dfs_tree = [&](auto &&self, const int ver, const int par) -> int64 {",
+            "    score_subtree[ver] += basic_score;",
+            "    for(int i = 0; i < tree[ver].size(); i++) {",
+            "        int ver_sub = tree[ver][i];"
+            "        if(ver_sub == par) continue;",
+            "        // shortcut",
+            "        int res = self(self, ver_sub, ver);",
+            "        if(res != -1) return res",
+            "        // children side logic",
+            "        score_subtree[ver] += self(self, ver_sub, ver);",
+            "    }",
+            "    // parent side logic",
+            "    // int64 par_score = whole_socre - score_subtree[ver];",
+            "    return score_subtree[ver];",
+            "};",
+            "// usage:",
+            "// dfs_tree(dfs_tree, 0, -1);",
+        ],
+    },
+    "[Algorithm] game dfs": {
+        "prefix": "dfs_game",
+        "body": [
+            "// Return score of the best move in the given state",
+            "int dfs(State state) {",
+            "    // use memo",
+            "",
+            "    // terminal condition",
+            "    if(state is end) return score_in_end;",
+            "",
+            "    // try all moves",
+            "    int res = -INF;",
+            "    for(s  : all_state_reached_from_given_state) {",
+            "        // dfs(s) return a score from opponent's view",
+            "        // update res using sum & dfs(s)",
+            "        res = max(res, sum - dfs(s));",
+            "    }",
+            "    return res;",
+            "}"
+        ],
+    },
     "[Algorithm] bfs": {
         "prefix": "bfs",
         "body": [
@@ -640,34 +706,13 @@
             "    // evaluate state",
             "    for(int i = 0; i < N; i++) {",
             "        // next state",
-            "        vector<int> nq = {q[0] + i, q[1] + i};"
+            "        vector<int> nq = {q[0] + dh, q[1] + dw};"
             "        // push state",
             "        if(nq[0] <= H and nq[i] <= W) {"
             "            Q.push(nq);",
             "        }"
             "    }",
             "}",
-        ],
-    },
-    "[Algorithm] game dfs": {
-        "prefix": "gamedfs",
-        "body": [
-            "// Return score of the best move in the given state",
-            "int dfs(State state) {",
-            "    // use memo",
-            "",
-            "    // terminal condition",
-            "    if(state is end) return score_in_end;",
-            "",
-            "    // try all moves",
-            "    int res = -INF;",
-            "    for(s  : all_state_reached_from_given_state) {",
-            "        // dfs(s) return a score from opponent's view",
-            "        // update res using sum & dfs(s)",
-            "        res = max(res, sum - dfs(s));",
-            "    }",
-            "    return res;",
-            "}"
         ],
     },
     "[Algorithm] imos":{
@@ -771,7 +816,7 @@
             "    const int n, r;",
             "    vector<int> comb;",
             "};",
-            "// 使い方",
+            "// usage:",
             "// Combination comb(10, 3);",
             "// comb.for_comb([](const auto &cmb) {",
             "//     cout << cmb[0] << cmb[1] << cmb[2] << endl;",

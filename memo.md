@@ -18,3 +18,5 @@ Atcoderガイド
     map/queue/priority_queue: https://atcoder.jp/contests/apg4b/tasks/APG4b_aa
 標準ライブラリデータ
     https://qiita.com/gnbrganchan/items/616f3701b1169e834565
+Atcoder問題のテストデータ
+    https://atcoder.jp/posts/20
