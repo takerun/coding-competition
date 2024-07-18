@@ -151,6 +151,17 @@
             "};",
         ],
     },
+    "[Def] lambda recursive function": {
+        "prefix": "def_func_recursive",
+        "body": [
+            "auto func_rec = [&](auto &&self, int a) -> int {",
+            "    if(a == 0)",
+            "        return 0;",
+            "    else",
+            "        return self(self, a - 1) + a;",
+            "};",
+        ],
+    },
     "[Input] int": {
         "prefix": "cin_int",
         "body": [
