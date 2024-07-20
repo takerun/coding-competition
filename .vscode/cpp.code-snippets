@@ -12,7 +12,7 @@
             "    cin.tie(nullptr);                 \\",
             "    cout.tie(nullptr)",
             "#define endl \"\\n\"",
-            "void Yes(bool a) { cout << (a ? \"Yes\" : \"No\") << endl; }"
+            "void Yes(bool a) { cout << (a ? \"Yes\" : \"No\") << endl; }",
             "typedef long long int int64;",
             "",
             "int main() {",
@@ -22,7 +22,7 @@
             "    // logic",
             "",
             "    // output",
-            "",            
+            "",
             "    return 0;",
             "}",
         ],
@@ -199,7 +199,7 @@
     "[Output] int": {
         "prefix": "cout_int",
         "body": "cout << x << endl;",
-    },   
+    },
     "[Output] 1d vector": {
         "prefix": "cout_vector_1d",
         "body": [
@@ -367,7 +367,7 @@
         "body": "ranges::max(vec_2d | views::transform([](auto &&v){ return size(v); }))",
         "description": "一番長い配列の配列数を返す",
     },
-    "[Method] get index in 1d vector":{
+    "[Method] get index in 1d vector": {
         "prefix": "index_vec_1d",
         "body": "int id = find(begin(A), end(A), key) - begin(A);",
     },
@@ -376,13 +376,13 @@
         "body": [
             "upper_bound(begin(A), end(A), key) - begin(A)",
         ],
-    }, 
+    },
     "[Method] get index at the bound greater than or equal": {
         "prefix": "index_lower_bound_index",
         "body": [
             "lower_bound(begin(A), end(A), key) - begin(A);",
         ],
-    }, 
+    },
     "[Method] get index at the bound greater than for pair": {
         "prefix": "index_upper_bound_index_pair",
         "body": [
@@ -392,7 +392,7 @@
             "};",
             "upper_bound(begin(A), end(A), key, first_less) - begin(A)",
         ],
-    }, 
+    },
     "[Method] get index at the bound greater than or equal for pair": {
         "prefix": "index_lower_bound_index_pair",
         "body": [
@@ -402,7 +402,7 @@
             "};",
             "lower_bound(begin(A), end(A), key, first_less) - begin(A);",
         ],
-    }, 
+    },
     "[Method] get cumulative in 1d vector": {
         "prefix": "cumul_vec_1d",
         "body": [
@@ -438,7 +438,7 @@
             "//     for(int j = 0; j < N; j++)",
             "//         if(i < j && A[i] > A[j]) inv++;",
         ],
-    },  
+    },
     "[Method] sort 1d vector ascending": {
         "prefix": "sort_vec_1d_ascending",
         "body": [
@@ -516,7 +516,7 @@
         "prefix": "loop_2bit",
         "body": [
             "for(int64 i = 1; i <= (1LL << N); i<<=1) {",
-            "    // logic"
+            "    // logic",
             "}"
         ],
     },
@@ -600,7 +600,7 @@
             "// 3進数全探索の場合、int(pow(3,Nbit))に変換",
             "for(int i = 0; i < (1 << Nbit); i++) {",
             "    vector<int> bit(Nbit);",
-            "    int pow = 1;"
+            "    int pow = 1;",
             "    for(int j = 0; j < Nbit; j++) {",
             "        bit[j] = (i / pow) % 2;  // 3進数全探索の場合、(i/pow)%3に変換",
             "        pow <<= 1;               // 3進数全探索の場合、pow*=3に変換",
@@ -616,7 +616,7 @@
     },
     "[Algorithm] binary search": {
         "prefix": "binary_search",
-        "body":[
+        "body": [
             "auto f = [&](int64 x) { return x * x; };  // 単調非減少な関数f",
             "int64 l = 0, r = 2e18;",
             "while((l + 1) < r) {",
@@ -668,11 +668,11 @@
             "// outer variable: vector<vector<int>> tree",
             "vector<int64> score_subtree(N, 0LL);",
             "auto dfs_tree = [&](auto &&self, const int ver, const int par) -> int64 {",
-            "    // ロジックは、葉-枝-根の順に確かめる"
+            "    // ロジックは、葉-枝-根の順に確かめる",
             "    // parent side logic",
             "    score_subtree[ver] += basic_score;",
             "    for(int i = 0; i < tree[ver].size(); i++) {",
-            "        int ver_sub = tree[ver][i];"
+            "        int ver_sub = tree[ver][i];",
             "        if(ver_sub == par) continue;",
             "        // shortcut",
             "        // int res = self(self, ver_sub, ver);",
@@ -748,7 +748,7 @@
             "// bfs({0, 0});",
         ],
     },
-    "[Algorithm] imos":{
+    "[Algorithm] imos": {
         "prefix": "imos",
         "body": [
             "// count",
@@ -836,7 +836,7 @@
         ],
         "description": "全方位木DP"
     },
-    "[Algorithm] Dijkstra":{
+    "[Algorithm] Dijkstra": {
         "prefix": "dijkstra",
         "body": [
             "constexpr int64 INF = (1LL << 60);",
