@@ -1,3 +1,5 @@
+// #pragma GCC optimize("unroll-loops")
+// #pragma GCC optimize("O3")
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -6,49 +8,44 @@ using namespace std;
     cin.tie(nullptr);                 \
     cout.tie(nullptr)
 #define endl "\n"
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
-#define rep_ft(i, f, t) for (int i = f; i < (int)(t); i++)
-#define all(x) std::begin(x), std::end(x)
+void Yes(bool a) { cout << (a ? "Yes" : "No") << endl; }
 typedef long long int int64;
 
-int A, B;
-vector<int> a(A), b(B);
-vector<vector<int>> dp(A, vector<int>(B));
-// Return score of the best move in the given state
-int dfs(int i, int j)
-{
-    if dp
-        [i][j] != -1
-                  // terminal condition
-                  if (i == A && j == B) return 0;
-
-    // try all moves
-    int res = -INF;
-    for (s : all_state_reached_from_given_state)
-    {
-        // dfs(s) return a score from opponent's view
-        // update res using sum & dfs(s)
-        res = max(res, sum - dfs(s));
-    }
-    return res;
-}
-
-int main()
-{
+int main() {
     fastIO();
-
+    // input
+    int A, B;
     cin >> A >> B;
-    rep(i, A)
-    {
-        cin >> a[i];
-    }
-    rep(i, B)
-    {
-        cin >> b[i];
-    }
+    vector<int> Aarr(A), Barr(B);
+    for(auto &a : Aarr) cin >> a;
+    for(auto &b : Barr) cin >> b;
 
     // logic
+    vector<vector<int>> dp(A + 1, vector<int>(B + 1, -1e7));
+    // return score of the best move in the given state
+    auto dfs_game = [&](auto &&self, const int Ai, const int Bi) -> int {
+        // exit conditions
+        if(Ai == A and Bi == B) return 0;
 
-    cout << endl;
+        // use memo
+        if(dp[Ai][Bi] != -1e7) return dp[Ai][Bi];
+
+        // try all moves, select the best one
+        int res = INT_MIN;
+        if(Ai < A) {
+            res = max(res, Aarr[Ai] - self(self, Ai + 1, Bi));
+        }
+        if(Bi < B) {
+            res = max(res, Barr[Bi] - self(self, Ai, Bi + 1));
+        }
+
+        return dp[Ai][Bi] = res;
+    };
+    // usage:
+
+    // output
+    int sum = accumulate(begin(Aarr), end(Aarr), 0) +
+              accumulate(begin(Barr), end(Barr), 0);
+    cout << (dfs_game(dfs_game, 0, 0) + sum) / 2 << endl;
     return 0;
 }
