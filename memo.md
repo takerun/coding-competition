@@ -20,3 +20,4 @@ Atcoderガイド
     https://qiita.com/gnbrganchan/items/616f3701b1169e834565
 Atcoder問題のテストデータ
     https://atcoder.jp/posts/20
+next_permutationは重複する値をスキップするので、112は112,121,211の3(3!/2!)パターンしか列挙しない。

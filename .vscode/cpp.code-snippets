@@ -238,6 +238,10 @@
             "int q = (x - r) / mod;",
         ],
     },
+    "[Method] calculate 10's power": {
+        "prefix": "calc_pow10",
+        "body": "int64 TEN(int x) { return x == 0 ? 1LL : TEN(x - 1) * 10LL; }",
+    },
     "[Method] calculate sum in 1d vector": {
         "prefix": "calc_sum_vec_1d",
         "body": "accumulate(begin(A), end(A), 0)",
@@ -293,6 +297,11 @@
             "auto check = [&](int64 a) {",
             "    string s = to_string(a);",
             "    return s == string(rbegin(s), rend(s));",
+            "    // bool flag = true;",
+            "    // for(int i = 0; i < s.size(); i++) {",
+            "    //     if(s[i] != s[s.size() - 1 - i]) flag = false;",
+            "    // }",
+            "    // return flag;",
             "};",
         ],
         "description": "回文を判定する"
@@ -737,7 +746,7 @@
             "            // next state",
             "            vector<int> nq = {q[0] + dh, q[1] + dw};",
             "            // push state",
-            "            if(nq[0] <= H and nq[i] <= W) {",
+            "            if(nq[0] >= 0 and nq[0] < H and nq[1] >= 0 and nq[1] < W) {",
             "                Q.push(nq);",
             "            }",
             "        }",
