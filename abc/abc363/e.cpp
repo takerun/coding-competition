@@ -53,7 +53,7 @@ int main() {
                    !Done[nq[0]][nq[1]]) {
                     if(Mat[nq[0]][nq[1]] <= y) {
                         Qs[y].push(nq);
-                    } else if(Mat[nq[0]][nq[1]] <= Y) {
+                    } else if(Mat[nq[0]][nq[1]] < Y) {
                         Qs[Mat[nq[0]][nq[1]]].push(nq);
                     }
 
