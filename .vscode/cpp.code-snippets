@@ -213,6 +213,12 @@
             "int num = int(S[i] - '0');"
         ],
     },
+    "[Convert] string to int": {
+        "prefix": "convert_string_to_int",
+        "body": [
+            "int num = stoi(S);"
+        ],
+    },
     "[Convert] split string": {
         "prefix": "split_string",
         "body": [
