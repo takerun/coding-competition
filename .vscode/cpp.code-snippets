@@ -652,6 +652,7 @@
         "body": [
             "auto f = [&](int64 x) { return x >= K; };  // 判定問題",
             "int64 ng = -1, ok = 2e18;  // ng:解が存在しない値, ok:解が存在する値",
+            "int64 ng = 2e18, ok = 0;  // 反転も可能",
             "while(abs(ok - ng) > 1) {",
             "    int64 mid = (ok + ng) / 2;",
             "    if(f(mid))",
