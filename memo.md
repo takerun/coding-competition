@@ -21,3 +21,4 @@ Atcoderガイド
 Atcoder問題のテストデータ
     https://atcoder.jp/posts/20
 next_permutationは重複する値をスキップするので、112は112,121,211の3(3!/2!)パターンしか列挙しない。
+lower_boundとupper_boundは、[1,2,3,3,3,3,4,5]では、lower_boundは[2,3]の間を、upper_boundは[3,4]の間を見つける。

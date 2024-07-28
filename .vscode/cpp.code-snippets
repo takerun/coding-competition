@@ -405,19 +405,19 @@
         "description": "return the size of vec if not found",
     },
     "[Method] get index at the bound greater than": {
-        "prefix": "index_upper_bound_index",
+        "prefix": "index_upper_bound_slice",
         "body": [
             "upper_bound(begin(A), end(A), key) - begin(A)",
         ],
     },
     "[Method] get index at the bound greater than or equal": {
-        "prefix": "index_lower_bound_index",
+        "prefix": "index_lower_bound_slice",
         "body": [
             "lower_bound(begin(A), end(A), key) - begin(A);",
         ],
     },
     "[Method] get index at the bound greater than for pair": {
-        "prefix": "index_upper_bound_index_pair",
+        "prefix": "index_upper_bound_slice_pair",
         "body": [
             "vector<pair<int, int>> A;",
             "auto first_less = [](const auto &mid, const auto &pr) {",
@@ -427,7 +427,7 @@
         ],
     },
     "[Method] get index at the bound greater than or equal for pair": {
-        "prefix": "index_lower_bound_index_pair",
+        "prefix": "index_lower_bound_slice_pair",
         "body": [
             "vector<pair<int, int>> A;",
             "auto first_less = [](const auto &pr, const auto &mid) {",
@@ -650,14 +650,14 @@
     "[Algorithm] binary search": {
         "prefix": "binary_search",
         "body": [
-            "auto f = [&](int64 x) { return x * x; };  // 単調非減少な関数f",
-            "int64 l = 0, r = 2e18;",
-            "while((l + 1) < r) {",
-            "    int64 mid = (l + r) / 2;",
-            "    if(f(mid) < K)  // upper_boundの場合、f(mid)<=K",
-            "        l = mid;",
+            "auto f = [&](int64 x) { return x >= K; };  // 判定問題",
+            "int64 ng = -1, ok = 2e18;  // ng:解が存在しない値, ok:解が存在する値",
+            "while(abs(ok - ng) > 1) {",
+            "    int64 mid = (ok + ng) / 2;",
+            "    if(f(mid))",
+            "        ok = mid;",
             "    else",
-            "        r = mid;",
+            "        ng = mid;",
             "}",
         ],
         "description": "binary search for a function",
