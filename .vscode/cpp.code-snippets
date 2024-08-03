@@ -844,6 +844,22 @@
             "cout << mn << endl;",
         ],
     },
+    "[Algorithm] 0-1knapsack DP": {
+        "prefix": "dp_knapsack_01",
+        "body": [
+            "// outer variable: int N, W, vector<int> w(N, 0), v(N, 0)",
+            "vector<int> dp(W + 1, 0);",
+            "for(int i = 0; i < N; i++) {",
+            "    for(int j = W; j >= 0; j--) {",
+            "        if(j - w[i] < 0) continue;",
+            "        dp[j] = max(dp[j], dp[j - w[i]] + v[i]);",
+            "    }",
+            "}",
+            "// usage:",
+            "// dp[W];",
+        ],
+        "description": "0-1でなく、個数制限なしの場合はjのループを0~Wのj++方向で回す。"
+    },
     "[Algorithm] digit DP": {
         "prefix": "dp_digit",
         "body": [
