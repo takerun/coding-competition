@@ -108,6 +108,27 @@
             "// lazy_segtree seg(v);",
         ],
     },
+    "[Include] dp chmin chmax": {
+        "prefix": "include_dp_min_max",
+        "body": [
+            "template <class T>",
+            "inline bool chmin(T& a, T b) {",
+            "    if(a > b) {",
+            "        a = b;",
+            "        return true;",
+            "    }",
+            "    return false;",
+            "}",
+            "template <class T>",
+            "inline bool chmax(T& a, T b) {",
+            "    if(a < b) {",
+            "        a = b;",
+            "        return true;",
+            "    }",
+            "    return false;",
+            "}",
+        ],
+    },
     "[Def] 1d vector": {
         "prefix": "def_vector_1d",
         "body": "vector<int> A(N, 0);",
@@ -193,6 +214,19 @@
             "}",
         ],
     },
+    "[Input] 1d vector for find": {
+        "prefix": "cin_vector_1d_for_find",
+        "body": [
+            "vector<bool> A4find(N, false);",
+            "for(int i = 0; i < K; i++) {",
+            "    int a;",
+            "    cin >> a;",
+            "    A4find[a] = true;",
+            "}",
+            "// usage:",
+            "// if(A4find[a]) return;"
+        ],
+    },
     "[Input] tree": {
         "prefix": "cin_tree",
         "body": [
@@ -222,6 +256,15 @@
         "body": [
             "for(const auto &a : A) cout << a << \" \";",
             "cout << endl;",
+        ],
+    },
+    "[Convert] equals in double": {
+        "prefix": "eq_double",
+        "body": [
+            "double EPS = 1e-9;",
+            "if(abs(x - y) <= EPS) {",
+            "    // logic",
+            "}",
         ],
     },
     "[Convert] char to int": {
