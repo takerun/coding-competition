@@ -258,15 +258,6 @@
             "cout << endl;",
         ],
     },
-    "[Convert] equals in double": {
-        "prefix": "eq_double",
-        "body": [
-            "double EPS = 1e-9;",
-            "if(abs(x - y) <= EPS) {",
-            "    // logic",
-            "}",
-        ],
-    },
     "[Convert] char to int": {
         "prefix": "convert_char_to_int",
         "body": [
@@ -343,6 +334,13 @@
             "};",
         ],
         "description": "blはbottom left、trはtop rightの意味。3つの共通部分の体積を求めたい場合はmin({trX1,trX2,trX3})のように",
+    },
+    "[Method] equal in double": {
+        "prefix": "is_equal_double",
+        "body": [
+            "double EPS = 1e-9;",
+            "abs(x - y) <= EPS",
+        ],
     },
     "[Method] equal to 1d vector": {
         "prefix": "is_equal_vec_1d",
@@ -612,6 +610,33 @@
             "}",
         ],
     },
+    "[Method] compress coordinate in 1d vector": {
+        "prefix": "compress_coordinate_vec_1d",
+        "body": [
+            "vector<int> A = {8, 100, 33, 33, 33, 12, 6, 1211};",
+            "vector<int> B = A; ",
+            "sort(begin(B), end(B));",
+            "B.erase(unique(begin(B), end(B)), end(B));",
+            "// usage:",
+            "// lower_bound(begin(B), end(B), keyA) - begin(B);",
+        ],
+        "description": "座標圧縮、配列の中で何番目に小さいかを求める",
+    },
+    "[Method] compress run length in 1d vector": {
+        "prefix": "compress_runlength_vec_1d",
+        "body": [
+            "int ans = 0;",
+            "int pre = 0;",
+            "for (int i = 1; i < N; i++) {",
+            "    if (A[i] != A[i - 1]) {",
+            "        ans += f(i - pre);",
+            "        pre = i;",
+            "    }",
+            "}",
+            "ans += f(N - pre);",
+        ],
+        "description": "ランレングス圧縮、配列の中で同じ値が連続する区間に対し評価値を与える",
+    },
     "[Frame] loop 1d": {
         "prefix": "loop_1d",
         "body": [
@@ -645,7 +670,7 @@
     "[Frame] loop 2bit": {
         "prefix": "loop_2bit",
         "body": [
-            "for(int64 i = 1; i <= (1LL << N); i<<=1) {",
+            "for(int64 i = 1LL; i <= (1LL << N); i<<=1) {",
             "    // logic",
             "}"
         ],
@@ -665,6 +690,16 @@
             "map<int, int> mp;",
             "for(const auto &[key, val] : mp) {",
             "    // logic",
+            "}",
+        ],
+    },
+    "[Frame] loop digit": {
+        "prefix": "loop_digit",
+        "body": [
+            "for(int i = 0; i < 32; i++) {",
+            "    int64 digit = 1LL << i;",
+            "    // logic",
+            "    // a_digit = (A[ai] & digit);",
             "}",
         ],
     },
@@ -941,6 +976,22 @@
             "cout << mn << endl;",
         ],
     },
+    "[Algorithm] general DP": {
+        "prefix": "dp_general",
+        "body": [
+            "// initialize dp",
+            "vector<int64> dp(N, 0LL);",
+            "",
+            "// init sub score",
+            "dp[0] = 1;",
+            "",
+            "// update dp",
+            "for(int i = 1; i < N; i++) {",
+            "    // logic",
+            "    // dp[i] = max(dp[i - 1], dp[i - 1] + a);",
+            "}",
+        ],
+    },
     "[Algorithm] 0-1knapsack DP": {
         "prefix": "dp_knapsack_01",
         "body": [
@@ -1075,6 +1126,35 @@
             "    }",
             "}",
         ],
+    },
+    "[Method] two pointers": {
+        "prefix": "two_pointers",
+        "body": [
+            "int64 val = 0;",
+            "int left = 0, right = 0;",
+            "while(left < N) {",
+            "    // optional: keep left < right",
+            "    while(left >= right) right++;",
+            "    if(right >= N) break;",
+            "",
+            "    // slide right pos",
+            "    int next_right = right;",
+            "    while(++next_right < N and condition_lr_span)",
+            "        right = next_right;",
+            "",
+            "    // calc value",
+            "    int64 length = (right - left);",
+            "    val += f(length);",
+            "",
+            "    // next left pos",
+            "    left = right;",
+            "    //left++;",
+            "",
+            "    // end condition",
+            "    if(left == N - 1) break;",
+            "}",
+        ],
+        "description": "しゃくとり法",
     },
     "[Class] Combination": {
         "prefix": "Combination",
