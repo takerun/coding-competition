@@ -26,6 +26,31 @@
 				"isDefault": true
 			},
 			"detail": "コンパイラ: /opt/homebrew/bin/g++、ショートカットキー: command+shift+B"
-		}
+		},
+		{
+			"label": "add cpp file",
+			"type": "shell",
+			"command": "${workspaceFolder}/scripts/add_cpp_file.sh",
+			"args": [
+				"${workspaceFolder}"
+			],
+			"presentation": {
+				"focus": true
+			}
+		},
+		{
+			"label": "run test case",
+			"type": "shell",
+			"command": "${workspaceFolder}/scripts/run_test_case.sh",
+			"args": [
+				"${relativeFile}"
+			],
+			"dependsOn": [
+				"build"
+			],
+			"presentation": {
+				"clear": true
+			}
+		},
 	]
 }
