@@ -9,6 +9,7 @@
             "",
             "#define endl \"\\n\"",
             "typedef long long int int64;",
+            "typedef unsigned long long int uint64;",
             "",
             "int main() {",
             "    ios_base::sync_with_stdio(false);",
@@ -105,8 +106,8 @@
             "// lazy_segtree seg(v);",
         ],
     },
-    "[Include] dp chmin chmax": {
-        "prefix": "include_dp_min_max",
+    "[Include] chmin": {
+        "prefix": "include_chmin",
         "body": [
             "template <class T>",
             "inline bool chmin(T& a, T b) {",
@@ -116,6 +117,11 @@
             "    }",
             "    return false;",
             "}",
+        ],
+    },
+    "[Include] chmax": {
+        "prefix": "include_chmax",
+        "body": [
             "template <class T>",
             "inline bool chmax(T& a, T b) {",
             "    if(a < b) {",
@@ -123,6 +129,26 @@
             "        return true;",
             "    }",
             "    return false;",
+            "}",
+        ],
+    },
+    "[Include] floor of a / b": {
+        "prefix": "include_floor",
+        "body": [
+            "template <class T>",
+            "inline T floor_x_yth(T x, T y) {",
+            "    // x/y: x(divident), y(divisor)",
+            "    return x >= 0 ? (x / y) : -((-x + y - 1) / y);",
+            "}",
+        ],
+    },
+    "[Include] ceil of a / b": {
+        "prefix": "include_ceil",
+        "body": [
+            "template <class T>",
+            "inline T ceil_x_yth(T x, T y) {",
+            "    // x/y: x(divident), y(divisor)",
+            "    return x >= 0 ? ((x + y - 1) / y) : (x / y);",
             "}",
         ],
     },
@@ -201,6 +227,17 @@
             "for(auto &a : A) cin >> a;",
         ],
     },
+    "[Input] 2d vector": {
+        "prefix": "cin_vector_2d",
+        "body": [
+            "vector<vector<int>> Mat(H, vector<int>(W, 0));",
+            "for(int i = 0; i < H; i++) {",
+            "    for(int j = 0; j < W; j++) {",
+            "        cin >> Mat[i][j];",
+            "    }",
+            "}",
+        ],
+    },
     "[Input] 1d vector with position": {
         "prefix": "cin_vector_1d_with_pos",
         "body": [
@@ -211,17 +248,17 @@
             "}",
         ],
     },
-    "[Input] 1d vector for find": {
-        "prefix": "cin_vector_1d_for_find",
+    "[Input] 1d vector with existence": {
+        "prefix": "cin_vector_1d_with_exist",
         "body": [
-            "vector<bool> A4find(N, false);",
-            "for(int i = 0; i < K; i++) {",
-            "    int a;",
-            "    cin >> a;",
-            "    A4find[a] = true;",
+            "vector<int> A(N, 0)",
+            "vector<bool> exist(M, false);",
+            "for(int i = 0; i < N; i++) {",
+            "    cin >> A[i];",
+            "    exist[A[i]] = true;",
             "}",
             "// usage:",
-            "// if(A4find[a]) return;"
+            "// if(exist[a]) return;"
         ],
     },
     "[Input] graph": {
@@ -230,8 +267,7 @@
             "vector<vector<int>> graph(N);",
             "for(int i = 0; i < M; i++) {",
             "    int a, b;",
-            "    cin >> a >> b;",
-            "    a--, b--;",
+            "    cin >> a >> b, a--, b--;",
             "    graph[a].push_back(b);",
             "}",
         ],
@@ -242,8 +278,7 @@
             "vector<vector<int>> tree(N);",
             "for(int i = 0; i < M; i++) {",
             "    int a, b;",
-            "    cin >> a >> b;",
-            "    a--, b--;",
+            "    cin >> a >> b, a--, b--;",
             "    tree[a].push_back(b);",
             "    tree[b].push_back(a);",
             "}",
@@ -268,6 +303,15 @@
             "    cout << A[i] << (i != A.size() - 1 ? \" \" : endl);",
         ],
     },
+    "[Output] 2d vector": {
+        "prefix": "cout_vector_2d",
+        "body": [
+            "vector<vector<int>> Mat;",
+            "for(int i = 0; i < Mat.size(); i++)",
+            "    for(int j = 0; j < Mat[i].size(); j++)",
+            "        cout << Mat[i][j] << (j != Mat[i].size() - 1 ? \" \" : endl);",
+        ],
+    },
     "[Output] yes no": {
         "prefix": "cout_yes_no",
         "body": [
@@ -275,15 +319,34 @@
         ],
     },
     "[Convert] char to int": {
-        "prefix": "convert_char_to_int",
+        "prefix": "to_int",
         "body": [
-            "int num = int(S[i] - '0');"
+            "int num = int(C - '0');"
         ],
     },
     "[Convert] string to int": {
-        "prefix": "convert_string_to_int",
+        "prefix": "to_int",
         "body": [
             "int num = stoi(S);"
+        ],
+    },
+    "[Convert] toupper/tolower char": {
+        "prefix": "to_upper_lower",
+        "body": [
+            "(char)toupper(c);  // tolower(c)"
+        ],
+    },
+    "[Convert] toupper/tolower string": {
+        "prefix": "to_upper_lower",
+        "body": [
+            "for(int i = 0; i < S.size(); i++) S[i] = toupper(S[i]);  // tolower(S[i])"
+        ],
+    },
+    "[Convert] substr string": {
+        "prefix": "substr_string",
+        "body": [
+            "// [l, r)",
+            "S.substr(l, r - l);",
         ],
     },
     "[Convert] split string": {
@@ -329,28 +392,6 @@
             "}",
         ],
     },
-    "[Measure] calculate manhattan distance": {
-        "prefix": "calc_manhattan_distance",
-        "body": [
-            "int distance = 0;",
-            "for(int i = 0; i < N; i++) {",
-            "    distance += abs(A[i] - B[i]);",
-            "}",
-        ],
-    },
-    "[Measure] calculate volume of common volume of 2 cube": {
-        "prefix": "calc_volume_2cube",
-        "body": [
-            "using T = int;",
-            "auto volumeCube = [&](T blX1, T blY1, T blZ1, T trX1, T trY1, T trZ1,",
-            "                        T blX2, T blY2, T blZ2, T trX2, T trY2, T trZ2) {",
-            "    return max(0, min(trX1, trX2) - max(blX1, blX2)) *",
-            "            max(0, min(trY1, trY2) - max(blY1, blY2)) *",
-            "            max(0, min(trZ1, trZ2) - max(blZ1, blZ2));",
-            "};",
-        ],
-        "description": "blはbottom left、trはtop rightの意味。3つの共通部分の体積を求めたい場合はmin({trX1,trX2,trX3})のように",
-    },
     "[Method] equal in double": {
         "prefix": "is_equal_double",
         "body": [
@@ -386,19 +427,8 @@
         ],
         "description": "回文を判定する"
     },
-    "[Method] is bit on": {
-        "prefix": "is_bit_on",
-        "body": [
-            "for(int i = 0; i < N; i++) {",
-            "    if(x & (1LL << i)) {",
-            "        // logic",
-            "    }",
-            "}",
-        ],
-        "description": "回文を判定する"
-    },
-    "[Method] get max value generally": {
-        "prefix": "val_max_general",
+    "[Method] select max value generally": {
+        "prefix": "select_max_general",
         "body": [
             "int64 mx = LLONG_MIN;  // -9e18",
             "for(int i = 0; i < N; i++) {",
@@ -406,12 +436,12 @@
             "}",
         ],
     },
-    "[Method] get max value in 1d vector": {
-        "prefix": "val_max_vec_1d",
+    "[Method] select max value in 1d vector": {
+        "prefix": "select_max_vec_1d",
         "body": "*max_element(begin(A), end(A))",
     },
-    "[Method] get max value in map": {
-        "prefix": "val_max_map",
+    "[Method] select max value in map": {
+        "prefix": "select_max_map",
         "body": [
             "auto order = [](const auto &left, const auto &right) {",
             "    // valueが同値なら、keyの小さい要素を取得",
@@ -424,8 +454,8 @@
             "// pr.first; pr.second;",
         ],
     },
-    "[Method] get min value generally": {
-        "prefix": "val_min_general",
+    "[Method] select min value generally": {
+        "prefix": "select_min_general",
         "body": [
             "int64 mn = LLONG_MAX;;  // 9e18",
             "for(int i = 0; i < N; i++) {",
@@ -433,12 +463,12 @@
             "}",
         ],
     },
-    "[Method] get min value in 1d vector": {
-        "prefix": "val_min_vec_1d",
+    "[Method] select min value in 1d vector": {
+        "prefix": "select_min_vec_1d",
         "body": "*min_element(begin(A), end(A))",
     },
-    "[Method] get min value in map": {
-        "prefix": "val_min_map",
+    "[Method] select min value in map": {
+        "prefix": "select_min_map",
         "body": [
             "auto order = [](const auto &left, const auto &right) {",
             "    // valueが同値なら、keyの小さい要素を取得",
@@ -456,25 +486,29 @@
         "body": "ranges::max(vec_2d | views::transform([](auto &&v){ return size(v); }))",
         "description": "一番長い配列の配列数を返す",
     },
-    "[Method] get index in 1d vector": {
-        "prefix": "index_vec_1d",
+    "[Method] popcount": {
+        "prefix": "popcount",
+        "body": "popcount((uint64)x);",
+    },
+    "[Method] find index in 1d vector": {
+        "prefix": "find_vec_1d",
         "body": "int id = find(begin(A), end(A), key) - begin(A);",
         "description": "return the size of vec if not found",
     },
-    "[Method] get index at the bound greater than": {
-        "prefix": "index_upper_bound_slice",
+    "[Method] find index at the bound greater than": {
+        "prefix": "find_upper_bound_slice",
         "body": [
             "upper_bound(begin(A), end(A), key) - begin(A)",
         ],
     },
-    "[Method] get index at the bound greater than or equal": {
-        "prefix": "index_lower_bound_slice",
+    "[Method] find index at the bound greater than or equal": {
+        "prefix": "find_lower_bound_slice",
         "body": [
             "lower_bound(begin(A), end(A), key) - begin(A);",
         ],
     },
-    "[Method] get index at the bound greater than for pair": {
-        "prefix": "index_upper_bound_slice_pair",
+    "[Method] find index at the bound greater than for pair": {
+        "prefix": "find_upper_bound_slice_pair",
         "body": [
             "vector<pair<int, int>> A;",
             "auto first_less = [](const auto &mid, const auto &pr) {",
@@ -483,8 +517,8 @@
             "upper_bound(begin(A), end(A), key, first_less) - begin(A)",
         ],
     },
-    "[Method] get index at the bound greater than or equal for pair": {
-        "prefix": "index_lower_bound_slice_pair",
+    "[Method] find index at the bound greater than or equal for pair": {
+        "prefix": "find_lower_bound_slice_pair",
         "body": [
             "vector<pair<int, int>> A;",
             "auto first_less = [](const auto &pr, const auto &mid) {",
@@ -559,10 +593,10 @@
     "[Method] get counter in 1d vector": {
         "prefix": "counter_vec_1d",
         "body": [
-            "vector<int> A;",
-            "map<int, int> cntr;",
+            "vector<int> A(N);",
+            "map<int, int> ctr;",
             "for(int i = 0; i < N; i++) {",
-            "    cntr[A[i]]++;",
+            "    ctr[A[i]]++;",
             "}",
         ],
     },
@@ -626,32 +660,27 @@
             "}",
         ],
     },
-    "[Method] compress coordinate in 1d vector": {
-        "prefix": "compress_coordinate_vec_1d",
+    "[Measure] calculate manhattan distance": {
+        "prefix": "calc_manhattan_distance",
         "body": [
-            "vector<int> A = {8, 100, 33, 33, 33, 12, 6, 1211};",
-            "vector<int> B = A; ",
-            "sort(begin(B), end(B));",
-            "B.erase(unique(begin(B), end(B)), end(B));",
-            "// usage:",
-            "// lower_bound(begin(B), end(B), keyA) - begin(B);",
-        ],
-        "description": "座標圧縮、配列の中で何番目に小さいかを求める",
-    },
-    "[Method] compress run length in 1d vector": {
-        "prefix": "compress_runlength_vec_1d",
-        "body": [
-            "int ans = 0;",
-            "int pre = 0;",
-            "for (int i = 1; i < N; i++) {",
-            "    if (A[i] != A[i - 1]) {",
-            "        ans += f(i - pre);",
-            "        pre = i;",
-            "    }",
+            "int distance = 0;",
+            "for(int i = 0; i < N; i++) {",
+            "    distance += abs(A[i] - B[i]);",
             "}",
-            "ans += f(N - pre);",
         ],
-        "description": "ランレングス圧縮、配列の中で同じ値が連続する区間に対し評価値を与える",
+    },
+    "[Measure] calculate volume of common volume of 2 cube": {
+        "prefix": "calc_volume_2cube",
+        "body": [
+            "using T = int;",
+            "auto volumeCube = [&](T blX1, T blY1, T blZ1, T trX1, T trY1, T trZ1,",
+            "                        T blX2, T blY2, T blZ2, T trX2, T trY2, T trZ2) {",
+            "    return max(0, min(trX1, trX2) - max(blX1, blX2)) *",
+            "            max(0, min(trY1, trY2) - max(blY1, blY2)) *",
+            "            max(0, min(trZ1, trZ2) - max(blZ1, blZ2));",
+            "};",
+        ],
+        "description": "blはbottom left、trはtop rightの意味。3つの共通部分の体積を求めたい場合はmin({trX1,trX2,trX3})のように",
     },
     "[Frame] loop 1d": {
         "prefix": "loop_1d",
@@ -683,12 +712,30 @@
             "}"
         ],
     },
-    "[Frame] loop 2bit": {
-        "prefix": "loop_2bit",
+    "[Frame] loop 1d with logic": {
+        "prefix": "loop_logic_1d",
         "body": [
-            "for(int64 i = 1LL; i <= (1LL << N); i<<=1) {",
+            "for(int i = 0; i < N; i++) {",
+            "    if(i == 0) {",
+            "        // init logic",
+            "    }",
+            "",
             "    // logic",
-            "}"
+            "",
+            "    if(i == N - 1) {",
+            "        // last logic",
+            "    }",
+            "}",
+        ],
+    },
+    "[Frame] loop digit": {
+        "prefix": "loop_digit_2bit",
+        "body": [
+            "for(int i = 0; i < 32; i++) {",
+            "    int64 digit = 1LL << i;",
+            "    // logic",
+            "    // x_digit = (x & digit);",
+            "}",
         ],
     },
     "[Frame] loop set": {
@@ -716,16 +763,6 @@
             "for(int i = from; i <= (from <= to ? to : to + M); i++) {",
             "    int ii = i % M;",
             "    // logic",
-            "}",
-        ],
-    },
-    "[Frame] loop digit": {
-        "prefix": "loop_digit",
-        "body": [
-            "for(int i = 0; i < 32; i++) {",
-            "    int64 digit = 1LL << i;",
-            "    // logic",
-            "    // a_digit = (A[ai] & digit);",
             "}",
         ],
     },
@@ -804,6 +841,33 @@
             "    cout << \"}\" << endl;",
             "}",
         ],
+    },
+    "[Algorithm] compress coordinate in 1d vector": {
+        "prefix": "compress_coordinate_vec_1d",
+        "body": [
+            "vector<int> A = {8, 100, 33, 33, 33, 12, 6, 1211};",
+            "vector<int> B = A; ",
+            "sort(begin(B), end(B));",
+            "B.erase(unique(begin(B), end(B)), end(B));",
+            "// usage:",
+            "// lower_bound(begin(B), end(B), keyA) - begin(B);",
+        ],
+        "description": "座標圧縮、配列の中で何番目に小さいかを求める",
+    },
+    "[Algorithm] compress run length in 1d vector": {
+        "prefix": "compress_runlength_vec_1d",
+        "body": [
+            "int ans = 0;",
+            "int pre = 0;",
+            "for (int i = 1; i < N; i++) {",
+            "    if (A[i] != A[i - 1]) {",
+            "        ans += f(i - pre);",
+            "        pre = i;",
+            "    }",
+            "}",
+            "ans += f(N - pre);",
+        ],
+        "description": "ランレングス圧縮、配列の中で同じ値が連続する区間に対し評価値を与える",
     },
     "[Algorithm] binary search": {
         "prefix": "binary_search",
@@ -1030,41 +1094,42 @@
         "prefix": "bfs",
         "body": [
             "// outer variable: int H, W",
-            "auto bfs = [&](vector<int>& start) -> vector<vector<int>> {",
+            "// state and value managed in queue",
+            "using Qsv = tuple<int, int, int>;  // h, w, score",
+            "auto bfs = [&](Qsv start) -> vector<vector<int>> {",
             "    // define seen and score",
             "    vector<vector<bool>> seen(H, vector<bool>(W, false));",
-            "    vector<vector<int>> score(H, vector<int>(W, -1));",
-            "    score[start[0]][start[1]] = 0;",
+            "    vector<vector<int>> score(H, vector<int>(W, INT_MAX));",
             "    // define queue",
-            "    queue<vector<int>> Q;",
+            "    queue<Qsv> Q;  // priority_queue<Qsv, vector<Qsv>, greater<Qsv>> Q;",
             "    Q.push(start);",
+            "    // get<0>(start)",
             "    while(!Q.empty()) {",
             "        // pop queue",
-            "        auto [h, w] = Q.front();",
+            "        auto [h, w, s] = Q.front();  // Q.top();",
             "        Q.pop();",
             "",
-            "        // skip state",
+            "        // skip seen state",
             "        if(seen[h][w]) continue;",
             "",
-            "        // update seen",
-            "        seen = true;",
+            "        // seeing logic",
+            "        seen[h][w] = true;",
+            "        chmin(score[h][w], s + 1);",
             "",
-            "        // evaluate state",
+            "        // push queue",
             "        for(int i = 0; i < N; i++) {",
-            "            // next state",
-            "            int nh = h + dh[i], nw = w + dw[i];",
+            "            int nh = h + dh[i], nw = w + dw[i];  // next state",
             "            // skip state",
             "            if(nh < 0 or nh >= H or nw < 0 or nw >= W) continue;",
             "            if(seen[nh][nw]) continue;",
             "            // push state",
-            "            Q.push({nh, nw});",
-            "            score[nh][nw] = min(score[nh][nw], score[h][w] + 1);",
+            "            Q.push({nh, nw, score[h][w]});",
             "        }",
             "    }",
             "    return score;",
             "};",
             "// usage:",
-            "// bfs({0, 0});",
+            "// bfs({0, 0, -1});",
         ],
     },
     "[Algorithm] imos": {
