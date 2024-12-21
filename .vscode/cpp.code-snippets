@@ -132,6 +132,10 @@
             "}",
         ],
     },
+    "[Include] power a ^ n": {
+        "prefix": "include_pow",
+        "body": "int64 pw(int64 a, int64 n) { return n == 0 ? 1LL : pw(a, n - 1) * a; }",
+    },
     "[Include] floor of a / b": {
         "prefix": "include_floor",
         "body": [
@@ -373,10 +377,6 @@
             "int r = (x % mod + mod) % mod;",
             "int q = (x - r) / mod;",
         ],
-    },
-    "[Method] calculate 10's power": {
-        "prefix": "calc_pow10",
-        "body": "int64 TEN(int x) { return x == 0 ? 1LL : TEN(x - 1) * 10LL; }",
     },
     "[Method] calculate sum in 1d vector": {
         "prefix": "calc_sum_vec_1d",
@@ -786,6 +786,14 @@
             "}",
         ],
     },
+    "[Frame] loop root N": {
+        "prefix": "loop_root_n",
+        "body": [
+            "for(int64 i = 0; i * i <= N; i++) {",
+            "    // logic",
+            "}",
+        ],
+    },
     "[Frame] loop cycle": {
         "prefix": "loop_cycle",
         "body": [
@@ -812,7 +820,7 @@
     "[Frame] loop Combination no duplicate": {
         "prefix": "loop_combination_no_duplicate",
         "body": [
-            "// nCr",
+            "// nCr, r: ball, n: box, n >= r",
             "int N, R;",
             "vector<int> combi(R, 0);",
             "auto loop_cmb_nodup = [&](auto &&self, const int d, const int st) -> void {",
@@ -869,7 +877,7 @@
         "body": [
             "int Nbit = 5;",
             "vector<int> bit(Nbit);",
-            "// 3進数の場合: for(int i = 0; i < int(pow(3, Nbit)); i++)",
+            "// 3進数の場合: for(int i = 0; i < int(pow(3, Nbit)); i++) ※powの誤差に注意",
             "for(int i = 0; i < (1 << Nbit); i++) {",
             "    int pow = 1;",
             "    for(int digit = 0; digit < Nbit; digit++)",
@@ -1373,21 +1381,47 @@
         "description": "しゃくとり法",
     },
     "[Data] Binominal": {
-        "prefix": "Binominal",
+        "prefix": "data_binominal",
         "body": [
             "struct Binomial {",
+            "    // fac: n!, invfac: 1 / n!",
             "    vector<mint> fac, invfac, inv;",
             "    Binomial(int n) : fac(n + 1), invfac(n + 1), inv(n + 1) {",
             "        fac[0] = invfac[0] = inv[0] = 1;",
-            "        for(int i = 1; i <= n; i++)",
-            "            fac[i] = fac[i - 1] * i;",
+            "        for(int i = 1; i <= n; i++) fac[i] = fac[i - 1] * i;",
             "        invfac[n] = fac[n].inv();",
             "        for(int i = n - 1; i >= 0; i--) {",
             "            invfac[i] = invfac[i + 1] * (i + 1);",
             "            inv[i + 1] = invfac[i + 1] * fac[i];",
             "        }",
             "    }",
-            "} C{303030};",
+            "} Bi{303030};",
+            "mint nCr(int n, int r) {",
+            "    if(n < r) return 0;",
+            "    if(n < 0 || r < 0) return 0;",
+            "    return Bi.fac[n] * Bi.invfac[r] * Bi.invfac[n - r];",
+            "}",
+        ]
+    },
+    "[Data] prime numbers": {
+        "prefix": "data_prime_number",
+        "body": [
+            "struct Eratos {",
+            "    vector<bool> isprime;",
+            "    vector<int64> primes;",
+            "    Eratos(int n) {",
+            "        isprime.resize(n, true);",
+            "        isprime[0] = false;",
+            "        isprime[1] = false;",
+            "        for(int64 i = 2; i < n; ++i) isprime[i] = true;",
+            "        for(int64 i = 2; i < n; ++i) {",
+            "            if(isprime[i]) {",
+            "                primes.push_back(i);",
+            "                for(int64 j = i * 2; j < n; j += i) isprime[j] = false;",
+            "            }",
+            "        }",
+            "    }",
+            "} Er{1000005};",
         ]
     },
     "[Data] Direction 4": {
