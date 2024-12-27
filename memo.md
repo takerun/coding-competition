@@ -26,6 +26,9 @@
 * next_permutation
     - 重複する値をスキップするので、112は112,121,211の3(3!/2!)パターンしか列挙しない。
 * lower_boundとupper_boundは、[1,2,3,3,3,3,4,5]では、lower_boundは[2,3]の間を、upper_boundは[3,4]の間を見つける。
+* setのイテレーターは計算量に注意
+    - https://rsk0315.hatenablog.com/entry/2019/09/10/173708
+    - ↑の「前提知識（イテレータ）」の章
 
 # その他
 Atcoder問題のテストデータ

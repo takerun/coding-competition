@@ -79,7 +79,7 @@
             "// 区間加算、区間最大値",
             "using S = int64;                           // モノイドの型",
             "S op(S a, S b) { return max(a, b); }       // 取得演算: max(a,b), min(a,b)",
-            "S e() { return LLONG_MIN; }                  // 単位元: -INF, INF",
+            "S e() { return numeric_limits<S>::min(); }                  // 単位元: -INF, INF",
             "using F = int64;                           // 操作の型",
             "S mapping(F f, S x) { return f + x; }      // 操作演算:",
             "F composition(F f, F g) { return f + g; }  // 写像の合成:",
@@ -157,15 +157,15 @@
         ],
     },
     "[Def] 1d vector": {
-        "prefix": "def_vector_1d",
+        "prefix": "def_vec_1d",
         "body": "vector<int> A(N, 0);",
     },
     "[Def] 2d vector": {
-        "prefix": "def_vector_2d",
+        "prefix": "def_vec_2d",
         "body": "vector<vector<int>> Mat(H, vector<int>(W, 0));",
     },
     "[Def] Nd vector": {
-        "prefix": "def_vector_Nd",
+        "prefix": "def_vec_Nd",
         "body": "vector State(I, vector(J, vector(K, vector(L, 0))));",
         "description": "define Nd vector with Template argument deduction"
     },
@@ -210,11 +210,18 @@
             "};",
         ],
     },
-    "[Input] int": {
-        "prefix": "cin_int",
+    "[Input] 1 item": {
+        "prefix": "cin_1",
         "body": [
             "int N;",
             "cin >> N;",
+        ],
+    },
+    "[Input] 2 items": {
+        "prefix": "cin_2",
+        "body": [
+            "int N, M;",
+            "cin >> N >> M;",
         ],
     },
     "[Input] string": {
@@ -225,14 +232,14 @@
         ],
     },
     "[Input] 1d vector": {
-        "prefix": "cin_vector_1d",
+        "prefix": "cin_vec_1d",
         "body": [
             "vector<int> A(N, 0);",
-            "for(auto &a : A) cin >> a;",
+            "for(int i = 0; i < A.size(); i++) cin >> A[i];",
         ],
     },
     "[Input] 2d vector": {
-        "prefix": "cin_vector_2d",
+        "prefix": "cin_vec_2d",
         "body": [
             "vector<vector<int>> Mat(H, vector<int>(W, 0));",
             "for(int i = 0; i < H; i++) {",
@@ -243,21 +250,21 @@
         ],
     },
     "[Input] 1d vector with position": {
-        "prefix": "cin_vector_1d_with_pos",
+        "prefix": "cin_vec_1d_with_pos",
         "body": [
             "vector<int> A(N, 0), pos(N, 0);",
-            "for(int i = 0; i < N; i++) {",
+            "for(int i = 0; i < A.size(); i++) {",
             "    cin >> A[i];",
             "    pos[A[i]] = i;",
             "}",
         ],
     },
     "[Input] 1d vector with existence": {
-        "prefix": "cin_vector_1d_with_exist",
+        "prefix": "cin_vec_1d_with_exist",
         "body": [
             "vector<int> A(N, 0)",
             "vector<bool> exist(M, false);",
-            "for(int i = 0; i < N; i++) {",
+            "for(int i = 0; i < A.size(); i++) {",
             "    cin >> A[i];",
             "    exist[A[i]] = true;",
             "}",
@@ -288,9 +295,13 @@
             "}",
         ],
     },
-    "[Output] int": {
-        "prefix": "cout_int",
+    "[Output] 1 item": {
+        "prefix": "cout_1",
         "body": "cout << x << endl;",
+    },
+    "[Output] 2 items": {
+        "prefix": "cout_2",
+        "body": "cout << x << \" \" << y << endl;",
     },
     "[Output] double": {
         "prefix": "cout_double",
@@ -300,14 +311,14 @@
         ]
     },
     "[Output] 1d vector": {
-        "prefix": "cout_vector_1d",
+        "prefix": "cout_vec_1d",
         "body": [
             "vector<int> A;",
             "for(int i = 0; i < A.size(); i++) cout << A[i] << \" \\n\"[i == A.size() - 1];",
         ],
     },
     "[Output] 2d vector": {
-        "prefix": "cout_vector_2d",
+        "prefix": "cout_vec_2d",
         "body": [
             "vector<vector<int>> Mat;",
             "for(int i = 0; i < Mat.size(); i++)",
@@ -317,40 +328,39 @@
     },
     "[Output] yes no": {
         "prefix": "cout_yes_no",
-        "body": [
-            "cout << (a ? \"Yes\" : \"No\") << endl;",
-        ],
+        "body": "cout << (a ? \"Yes\" : \"No\") << endl;",
     },
     "[Convert] char to int": {
         "prefix": "to_int",
-        "body": [
-            "int num = int(C - '0');"
-        ],
+        "body": "int(C - '0');",
     },
     "[Convert] string to int": {
         "prefix": "to_int",
+        "body": "stoi(S);",
+    },
+    "[Convert] toupper char": {
+        "prefix": "to_upper",
+        "body": "(char)toupper(c);",
+    },
+    "[Convert] tolower char": {
+        "prefix": "to_lower",
+        "body": "(char)tolower(c);",
+    },
+    "[Convert] toupper string": {
+        "prefix": "to_upper",
         "body": [
-            "int num = stoi(S);"
+            "for(int i = 0; i < S.size(); i++) S[i] = toupper(S[i]);"
         ],
     },
-    "[Convert] toupper/tolower char": {
-        "prefix": "to_upper_lower",
+    "[Convert] tolower string": {
+        "prefix": "to_lower",
         "body": [
-            "(char)toupper(c);  // tolower(c)"
-        ],
-    },
-    "[Convert] toupper/tolower string": {
-        "prefix": "to_upper_lower",
-        "body": [
-            "for(int i = 0; i < S.size(); i++) S[i] = toupper(S[i]);  // tolower(S[i])"
+            "for(int i = 0; i < S.size(); i++) S[i] = tolower(S[i]);"
         ],
     },
     "[Convert] substr string": {
         "prefix": "substr_string",
-        "body": [
-            "// [l, r)",
-            "S.substr(l, r - l);",
-        ],
+        "body": "S.substr(l, r - l); // [l, r)",
     },
     "[Convert] split string": {
         "prefix": "split_string",
@@ -378,6 +388,10 @@
             "int q = (x - r) / mod;",
         ],
     },
+    "[Method] calculate popcount": {
+        "prefix": "calc_popcount",
+        "body": "popcount((uint64)x);",
+    },
     "[Method] calculate sum in 1d vector": {
         "prefix": "calc_sum_vec_1d",
         "body": "accumulate(begin(A), end(A), 0)",
@@ -391,6 +405,26 @@
             "    stk.pop();",
             "}",
         ],
+    },
+    "[Method] calculate manhattan distance": {
+        "prefix": "calc_manhattan_distance",
+        "body": [
+            "int distance = 0;",
+            "for(int i = 0; i < N; i++) distance += abs(A[i] - B[i]);",
+        ],
+    },
+    "[Method] calculate volume of common volume of 2 cube": {
+        "prefix": "calc_volume_2cube",
+        "body": [
+            "using T = int;",
+            "auto volumeCube = [&](T blX1, T blY1, T blZ1, T trX1, T trY1, T trZ1,",
+            "                        T blX2, T blY2, T blZ2, T trX2, T trY2, T trZ2) {",
+            "    return max(0, min(trX1, trX2) - max(blX1, blX2)) *",
+            "            max(0, min(trY1, trY2) - max(blY1, blY2)) *",
+            "            max(0, min(trZ1, trZ2) - max(blZ1, blZ2));",
+            "};",
+        ],
+        "description": "blはbottom left、trはtop rightの意味。3つの共通部分の体積を求めたい場合はmin({trX1,trX2,trX3})のように",
     },
     "[Method] equal in double": {
         "prefix": "is_equal_double",
@@ -406,14 +440,14 @@
     "[Method] equal to 2d vector": {
         "prefix": "is_equal_vec_2d",
         "body": [
-            "bool ans = true;",
+            "bool is_equal = true;",
             "for(int i = 0; i < N; i++) {",
-            "    ans &= equal(begin(A), end(A), begin(B), end(B));",
+            "    is_equal &= equal(begin(A), end(A), begin(B), end(B));",
             "}",
         ],
     },
-    "[Method] regular expression": {
-        "prefix": "is_regex_matched",
+    "[Method] is matched in regular expression": {
+        "prefix": "is_matched_regex",
         "body": [
             "string S;",
             "regex_match(S, regex(\"A*B*C*\"))",
@@ -434,21 +468,22 @@
         ],
         "description": "回文を判定する"
     },
-    "[Method] select max value generally": {
-        "prefix": "select_max_general",
+    "[Method] max value generally": {
+        "prefix": "max_general",
         "body": [
-            "int64 mx = LLONG_MIN;  // -9e18",
-            "for(int i = 0; i < N; i++) {",
-            "    mx = max(mx, A[i]);",
-            "}",
+            "int64 mx = numeric_limits<int64>::min();  // -9e18",
+            "for(int i = 0; i < N; i++) chmax(mx, A[i]);",
         ],
     },
-    "[Method] select max value in 1d vector": {
-        "prefix": "select_max_vec_1d",
-        "body": "*max_element(begin(A), end(A))",
+    "[Method] max value iterator in 1d vector": {
+        "prefix": "max_vec_1d",
+        "body": [
+            "auto maxit = max_element(begin(v), end(v));",
+            "// usage: *maxit, maxit - begin(v)",
+        ],
     },
-    "[Method] select max value in map": {
-        "prefix": "select_max_map",
+    "[Method] max value iterator in map": {
+        "prefix": "max_map",
         "body": [
             "auto order = [](const auto &left, const auto &right) {",
             "    // valueが同値なら、keyの小さい要素を取得",
@@ -457,25 +492,33 @@
             "    else  // valueが大きい要素を取得",
             "        return left.second < right.second;",
             "};",
-            "auto pr = *max_element(begin(mp), end(mp), order);",
-            "// pr.first; pr.second;",
+            "auto maxit = max_element(begin(mp), end(mp), order);",
+            "// usage: (*maxit).first, (*maxit).second, maxit++",
         ],
     },
-    "[Method] select min value generally": {
-        "prefix": "select_min_general",
+    "[Method] max value iterator in set": {
+        "prefix": "max_set",
         "body": [
-            "int64 mn = LLONG_MAX;;  // 9e18",
-            "for(int i = 0; i < N; i++) {",
-            "    mn = min(mn, A[i]);",
-            "}",
+            "auto maxit = --st.end();",
+            "// usage: *maxit, maxit++",
         ],
     },
-    "[Method] select min value in 1d vector": {
-        "prefix": "select_min_vec_1d",
-        "body": "*min_element(begin(A), end(A))",
+    "[Method] min value generally": {
+        "prefix": "min_general",
+        "body": [
+            "int64 mn = numeric_limits<int64>::max();;  // 9e18",
+            "for(int i = 0; i < N; i++) chmin(mn, A[i]);",
+        ],
     },
-    "[Method] select min value in map": {
-        "prefix": "select_min_map",
+    "[Method] min value iterator in 1d vector": {
+        "prefix": "min_vec_1d",
+        "body": [
+            "auto minit = min_element(begin(v), end(v));",
+            "// usage: *minit, minit - begin(v)",
+        ],
+    },
+    "[Method] min value iterator in map": {
+        "prefix": "min_map",
         "body": [
             "auto order = [](const auto &left, const auto &right) {",
             "    // valueが同値なら、keyの小さい要素を取得",
@@ -484,73 +527,140 @@
             "    else  // valueが小さい要素を取得",
             "        return left.second < right.second;",
             "};",
-            "auto pr = *min_element(begin(mp), end(mp), order);",
-            "// pr.first; pr.second;",
+            "auto minit = min_element(begin(mp), end(mp), order);",
+            "// usage: (*minit).first, (*minit).second, minit++",
         ],
     },
-    "[Method] get max length 1d in 2d vector": {
-        "prefix": "get_max_length_vec_2d",
-        "body": "ranges::max(vec_2d | views::transform([](auto &&v){ return size(v); }))",
-        "description": "一番長い配列の配列数を返す",
-    },
-    "[Method] count": {
-        "prefix": "count",
+    "[Method] min value iterator in set": {
+        "prefix": "min_set",
         "body": [
-            "// vector, string: count(begin(A), end(A), a)",
-            "// map, set: A.count(a)",
+            "auto minit = st.begin();",
+            "// usage: *minit, minit++",
         ],
     },
-    "[Method] popcount": {
-        "prefix": "popcount",
-        "body": "popcount((uint64)x);",
-    },
-    "[Method] find index in 1d vector": {
+    "[Method] find iterator in 1d vector": {
         "prefix": "find_vec_1d",
-        "body": "int id = find(begin(A), end(A), key) - begin(A);",
-        "description": "return the size of vec if not found",
-    },
-    "[Method] find index at the bound greater than": {
-        "prefix": "find_upper_bound_slice",
         "body": [
-            "upper_bound(begin(A), end(A), key) - begin(A)",
+            "auto itr = find(begin(v), end(v), key);",
+            "// usage: *itr, itr - begin(v)",
+            "// itr == end(v) if not found",
         ],
     },
-    "[Method] find index at the bound greater than or equal": {
-        "prefix": "find_lower_bound_slice",
+    "[Method] find slice at upper bound": {
+        "prefix": "find_upper_bound_vec_1d",
         "body": [
-            "lower_bound(begin(A), end(A), key) - begin(A);",
+            "auto uit = upper_bound(begin(v), end(v), key);",
+            "// usage: *uit, uit - begin(v)",
         ],
     },
-    "[Method] find index at the bound greater than for pair": {
-        "prefix": "find_upper_bound_slice_pair",
+    "[Method] find slice at lower bound": {
+        "prefix": "find_lower_bound_vec_1d",
         "body": [
-            "vector<pair<int, int>> A;",
-            "auto first_less = [](const auto &mid, const auto &pr) {",
+            "auto lit = lower_bound(begin(v), end(v), key);",
+            "// usage: *lit, lit - begin(v)",
+        ],
+    },
+    "[Method] find slice at upper bound for pair vector": {
+        "prefix": "find_upper_bound_vec_pair",
+        "body": [
+            "vector<pair<int, int>> v;",
+            "auto first_order_ub = [](const auto &mid, const auto &pr) {",
             "    return mid < pr.first;",
             "};",
-            "upper_bound(begin(A), end(A), key, first_less) - begin(A)",
+            "auto uit = upper_bound(begin(v), end(v), key, first_order_ub);",
+            "// usage: *uit, uit - begin(v)",
         ],
     },
-    "[Method] find index at the bound greater than or equal for pair": {
-        "prefix": "find_lower_bound_slice_pair",
+    "[Method] find slice at lower bound for pair vector": {
+        "prefix": "find_lower_bound_vec_pair",
         "body": [
-            "vector<pair<int, int>> A;",
-            "auto first_less = [](const auto &pr, const auto &mid) {",
+            "vector<pair<int, int>> v;",
+            "auto first_order_lb = [](const auto &pr, const auto &mid) {",
             "    return pr.first < mid;",
             "};",
-            "lower_bound(begin(A), end(A), key, first_less) - begin(A);",
+            "auto lit = lower_bound(begin(v), end(v), key, first_order_lb);",
+            "// usage: *lit, lit - begin(v)",
         ],
     },
-    "[Method] get cumulative in 1d vector": {
+    "[Method] find slice iterator at upper bound for set": {
+        "prefix": "find_upper_bound_set",
+        "body": [
+            "auto uit = st.upper_bound(key)",
+            "// usage: *uit, uit++"
+        ],
+    },
+    "[Method] find slice iterator at lower bound for set": {
+        "prefix": "find_lower_bound_set",
+        "body": [
+            "auto lit = st.lower_bound(key)",
+            "// usage: *lit, lit++"
+        ],
+    },
+    "[Method] erase in 1d vector": {
+        "prefix": "erase_vec_1d",
+        "body": "v.erase(remove(begin(v), end(v), key), end(v));",
+    },
+    "[Method] erase in 1d vector using iterator": {
+        "prefix": "erase_itr_vec_1d",
+        "body": "v.erase(itr);",
+    },
+    "[Method] erase from to in 1d vector using iterator": {
+        "prefix": "erase_from_to_vec_1d",
+        "body": [
+            "sort(begin(v), end(v));",
+            "auto lit = lower_bound(begin(v), end(v), key_from),",
+            "     uit = upper_bound(begin(v), end(v), key_to);",
+            "v.erase(lit, uit);  // [from, to)",
+        ],
+    },
+    "[Method] erase in map": {
+        "prefix": "erase_map",
+        "body": "mp.erase(key);",
+    },
+    "[Method] erase in map using iterator": {
+        "prefix": "erase_itr_map",
+        "body": "mp.erase(itr);",
+    },
+    "[Method] erase from to in map using iterator": {
+        "prefix": "erase_from_to_map",
+        "body": [
+            "auto lit = mp.lower_bound(key_from), uit = mp.upper_bound(key_to);",
+            "mp.erase(lit, uit);  // [from, to)",
+        ],
+    },
+    "[Method] erase in set": {
+        "prefix": "erase_set",
+        "body": "st.erase(key);",
+    },
+    "[Method] erase in set using iterator": {
+        "prefix": "erase_itr_set",
+        "body": "st.erase(itr);",
+    },
+    "[Method] erase from to in set using iterator": {
+        "prefix": "erase_from_to_set",
+        "body": [
+            "auto lit = st.lower_bound(key_from), uit = st.upper_bound(key_to);",
+            "st.erase(lit, uit);  // [from, to)",
+        ],
+    },
+    "[Method] erase duplicate in 1d vector": {
+        "prefix": "erase_duplicate_vec_1d",
+        "body": [
+            "sort(begin(A), end(A));",
+            "A.erase(unique(begin(A), end(A)), end(A));",
+        ],
+        "description": "重複をなくす"
+    },
+    "[Method] make cumulative in 1d vector": {
         "prefix": "cumul_vec_1d",
         "body": [
-            "vector<int> A(N), cuml(N + 1, 0);",
-            "for(int i = 0; i < N; i++) cuml[i + 1] = cuml[i] + A[i];",
+            "vector<int> A(N), cml(N + 1, 0);",
+            "for(int i = 0; i < N; i++) cml[i + 1] = cml[i] + A[i];",
             "// usage:",
-            "// cuml[right] - cuml[left]; // sum [left, right)",
+            "// cml[right] - cml[left]; // sum of [left, right)",
         ],
     },
-    "[Method] get cumulative in 2d vector": {
+    "[Method] make cumulative in 2d vector": {
         "prefix": "cumul_vec_2d",
         "body": [
             "vector mat(H, vector(W, 0LL));",
@@ -569,7 +679,7 @@
             "// box_sum(lx, rx, ly, ry); // sum [lx, rx)",
         ],
     },
-    "[Method] get cumulative in 3d vector": {
+    "[Method] make cumulative in 3d vector": {
         "prefix": "cumul_vec_3d",
         "body": [
             "vector tens(N, vector(N, vector(N, 0LL)));",
@@ -595,7 +705,7 @@
             "// cube_sum(lx, rx, ly, ry, lz, rz); // sum [lx, rx)",
         ],
     },
-    "[Method] get cumulative xor in 1d vector": {
+    "[Method] make cumulative xor in 1d vector": {
         "prefix": "cumulx_vec_1d",
         "body": [
             "vector<int64> A(N), cumlx(N + 1, 0);",
@@ -604,7 +714,7 @@
             "// cumlx[right] ^ cumlx[left] * (1 << d) // xor-product [left, right)",
         ],
     },
-    "[Method] get counter in 1d vector": {
+    "[Method] make counter in 1d vector": {
         "prefix": "counter_vec_1d",
         "body": [
             "vector<int> A(N);",
@@ -614,7 +724,7 @@
             "}",
         ],
     },
-    "[Method] get inversion num for 1d vector": {
+    "[Method] count inversion num for 1d vector": {
         "prefix": "inversion_vec_1d",
         "body": [
             "// 転倒数を求めたい配列はA(0-indexed)とする。",
@@ -632,19 +742,19 @@
         ],
     },
     "[Method] sort 1d vector ascending": {
-        "prefix": "sort_vec_1d_ascending",
+        "prefix": "sort_vec_1d",
         "body": [
             "sort(begin(A), end(A));"
         ],
     },
     "[Method] sort 1d vector descending": {
-        "prefix": "sort_vec_1d_descending",
+        "prefix": "sort_vec_1d_desc",
         "body": [
             "sort(begin(A), end(A), greater<int>());"
         ],
     },
-    "[Method] sort 1d pair flexible order": {
-        "prefix": "sort_pair_1d",
+    "[Method] sort pair vector flexible order": {
+        "prefix": "sort_vec_pair",
         "body": [
             "auto order = [](const auto &left, const auto &right) {",
             "    // 第一要素が同値なら、第二要素で降順",
@@ -656,35 +766,36 @@
             "sort(begin(A), end(A), order);",
         ],
     },
-    "[Method] erase duplicate in 1d vector": {
-        "prefix": "erase_duplicate_vec_1d",
-        "body": [
-            "sort(begin(A), end(A));",
-            "A.erase(unique(begin(A), end(A)), end(A));",
-        ],
-        "description": "重複をなくす"
+    "[If] contain for 1d vector": {
+        "prefix": "if_contain_vec_1d",
+        "body": "if(count(begin(v), end(v), key))",
     },
-    "[Measure] calculate manhattan distance": {
-        "prefix": "calc_manhattan_distance",
+    "[If] contain for string": {
+        "prefix": "if_contain_string",
+        "body": "if(count(begin(S), end(S), key_char))",
+    },
+    "[If] contain for map": {
+        "prefix": "if_contain_map",
+        "body": "if(mp.count(key))",
+    },
+    "[If] contain for set": {
+        "prefix": "if_contain_set",
+        "body": "if(st.count(key))",
+    },
+    "[If] Direction 4": {
+        "prefix": "if_direction_4",
         "body": [
-            "int distance = 0;",
-            "for(int i = 0; i < N; i++) {",
-            "    distance += abs(A[i] - B[i]);",
+            "int nx = x, ny = y;",
+            "if(d == 'R') {",
+            "    nx++;",
+            "} else if(d == 'L') {",
+            "    nx--;",
+            "} else if(d == 'U') {",
+            "    ny++;",
+            "} else {",
+            "    ny--;",
             "}",
         ],
-    },
-    "[Measure] calculate volume of common volume of 2 cube": {
-        "prefix": "calc_volume_2cube",
-        "body": [
-            "using T = int;",
-            "auto volumeCube = [&](T blX1, T blY1, T blZ1, T trX1, T trY1, T trZ1,",
-            "                        T blX2, T blY2, T blZ2, T trX2, T trY2, T trZ2) {",
-            "    return max(0, min(trX1, trX2) - max(blX1, blX2)) *",
-            "            max(0, min(trY1, trY2) - max(blY1, blY2)) *",
-            "            max(0, min(trZ1, trZ2) - max(blZ1, blZ2));",
-            "};",
-        ],
-        "description": "blはbottom left、trはtop rightの意味。3つの共通部分の体積を求めたい場合はmin({trX1,trX2,trX3})のように",
     },
     "[Frame] loop 1d": {
         "prefix": "loop_1d",
@@ -761,10 +872,22 @@
     "[Frame] loop digit": {
         "prefix": "loop_digit_2bit",
         "body": [
-            "for(int i = 0; i < 32; i++) {",
-            "    int64 digit = 1LL << i;",
+            "int64 x;",
+            "for(int64 i = 0LL, num = x; num != 0LL; i++, num >>= 1) {",
             "    // logic",
-            "    // x_digit = (x & digit);",
+            "    // int64 digit = 1LL << i;",
+            "    // if(num & 1) {",
+            "    //     cout << digit << endl;",
+            "    // }",
+            "}",
+        ],
+    },
+    "[Frame] loop map": {
+        "prefix": "loop_map",
+        "body": [
+            "map<int, int> mp;",
+            "for(const auto &[key, val] : mp) {",
+            "    // logic",
             "}",
         ],
     },
@@ -777,11 +900,12 @@
             "}",
         ],
     },
-    "[Frame] loop map<int, int>": {
-        "prefix": "loop_map",
+    "[Frame] loop set from to": {
+        "prefix": "loop_set_from_to",
         "body": [
-            "map<int, int> mp;",
-            "for(const auto &[key, val] : mp) {",
+            "set<int> st;",
+            "auto lit = st.lower_bound(from), uit = st.upper_bound(to);",
+            "for(; lit != uit; lit++) {",
             "    // logic",
             "}",
         ],
@@ -1045,7 +1169,7 @@
             "    // use memo",
             "",
             "    // try all moves, select the best one",
-            "    int res = INT_MIN;",
+            "    int res = numeric_limits<int>::min();",
             "    for(next_s : all_of_next_state) {",
             "        update(wincase);",
             "        // self(self, wincase_opponent, wincase, next_s) return a score",
@@ -1078,7 +1202,7 @@
             "    if(dp.count(state)) return dp[state];",
             "",
             "    // try all moves, select the best one",
-            "    int res = INT_MIN;",
+            "    int res = numeric_limits<int>::min();",
             "    for(next_s : all_of_next_state) {",
             "        if(state[i][j] != -1) continue;",
             "        // self(self, turn ^ 1) return a score from opponent's view",
@@ -1146,7 +1270,7 @@
             "auto bfs = [&](Qsv start) -> vector<vector<int>> {",
             "    // define seen and score",
             "    vector<vector<bool>> seen(H, vector<bool>(W, false));",
-            "    vector<vector<int>> score(H, vector<int>(W, INT_MAX));",
+            "    vector<vector<int>> score(H, vector<int>(W, numeric_limits<int>::max()));",
             "    // define queue",
             "    queue<Qsv> Q;  // priority_queue<Qsv, vector<Qsv>, greater<Qsv>> Q;",
             "    Q.push(start);",
