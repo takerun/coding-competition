@@ -17,6 +17,9 @@
     - DFS https://qiita.com/drken/items/a803d4fc4a727e02f7ba
     - BFS https://qiita.com/drken/items/996d80bcae64649a6580
 
+# 典型問題
+* 主客転倒・寄与分解 https://drken1215.hatenablog.com/entry/2024/11/10/181617
+
 # c++ライブラリ
 * 標準ライブラリデータ構造 https://qiita.com/gnbrganchan/items/616f3701b1169e834565
 * Atcoderガイド

@@ -942,6 +942,14 @@
             "}",
         ],
     },
+    "[Frame] loop A-Z": {
+        "prefix": "loop_A-Z",
+        "body": [
+            "for(char c = 'A'; c <= 'Z'; c++) {",
+            "    // logic",
+            "}",
+        ],
+    },
     "[Frame] loop Permutation": {
         "prefix": "loop_permitation",
         "body": [
