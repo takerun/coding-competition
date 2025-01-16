@@ -19,6 +19,7 @@
 
 # 典型問題
 * 主客転倒・寄与分解 https://drken1215.hatenablog.com/entry/2024/11/10/181617
+* 桁DP https://qiita.com/Kiri8128/items/a0786a690232623bd0f6
 
 # c++ライブラリ
 * 標準ライブラリデータ構造 https://qiita.com/gnbrganchan/items/616f3701b1169e834565
@@ -34,5 +35,13 @@
     - ↑の「前提知識（イテレータ）」の章
 
 # その他
-Atcoder問題のテストデータ
-    https://atcoder.jp/posts/20
+* Atcoder問題のテストデータ https://atcoder.jp/posts/20
+* オンライン実装チェックAOJ https://judge.u-aizu.ac.jp/onlinejudge/index.jsp?lang=ja
+* vscodeのonline-judge-toolsのいい感じ設定 https://www.pike8.com/vscode-task/
+    ```ctrl+shift+tでテスト実行実行
+    {
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.tasks.runTask",
+    "args": "run test case"
+    }
+    ```
