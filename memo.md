@@ -16,6 +16,7 @@
 * グラフ問題の解き方
     - DFS https://qiita.com/drken/items/a803d4fc4a727e02f7ba
     - BFS https://qiita.com/drken/items/996d80bcae64649a6580
+* mod https://rsk0315.hatenablog.com/entry/2023/05/05/221524
 
 # 典型問題
 * 主客転倒・寄与分解 https://drken1215.hatenablog.com/entry/2024/11/10/181617

@@ -377,6 +377,10 @@
         "prefix": "substr_string",
         "body": "S.substr(l, r - l); // [l, r)",
     },
+    "[Convert] replace string": {
+        "prefix": "replace_string",
+        "body": "replace(begin(S), end(S), 'a', 'b');",
+    },
     "[Convert] split string": {
         "prefix": "split_string",
         "body": [
@@ -1100,6 +1104,25 @@
         ],
         "description": "ランレングス圧縮、配列の中で同じ値が連続する区間に対し評価値を与える",
     },
+    "[Algorithm] doubling": {
+        "prefix": "doubling",
+        "body": [
+            "int N;",
+            "int64 K;  // transform count",
+            "int MAX_DOUBLING = 64;",
+            "vector<vector<int>> next(MAX_DOUBLING, vector<int>(N));",
+            "for(int i = 0; i < N; i++) cin >> next[0][i], next[0][i]--;  // input",
+            "for(int d = 0; d + 1 < MAX_DOUBLING; d++) {",
+            "    for(int i = 0; i < N; i++) {",
+            "        next[d + 1][i] = next[d][next[d][i]];",
+            "    }",
+            "}",
+            "int transformed_i = i;",
+            "for(int d = 0; d < MAX_DOUBLING; ++d) {",
+            "    if(K & (1LL << d)) transformed_i = next[d][transformed_i];",
+            "}",
+        ],
+    },
     "[Algorithm] binary search": {
         "prefix": "binary_search",
         "body": [
@@ -1535,7 +1558,7 @@
             "// 負の閉路がなければ実行可能",
             "// distances は頂点数と同じサイズ, 全要素 INF で初期化しておく",
             "// Graph G(V);",
-            "//   G[from].emplace_back({to, cost});",
+            "//   G[from].emplace_back(to, cost);",
             "// vector<int64> d(V, INF);",
             "// Dijkstra(G, d, 0);",
             "// cout << d[V - 1];",
