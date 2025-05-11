@@ -26,8 +26,9 @@
     "[Initialization] G++ Code boost": {
         "prefix": "g++_boost",
         "body": [
-            "#pragma GCC optimize(\"unroll-loops\")",
+            "#pragma GCC target(\"avx2\")",
             "#pragma GCC optimize(\"O3\")",
+            "#pragma GCC optimize(\"unroll-loops\")",
         ],
     },
     "[Include] modint998244353": {
@@ -69,7 +70,7 @@
             "#include <atcoder/segtree>",
             "using S = int64;                        // モノイドの型",
             "S op(S a, S b) { return max(a, b); }  // 取得演算: a+b, a*b, max(a,b)",
-            "S e() { return 0; }                   // 単位元: 0, 1, -INF",
+            "S e() { return S{0}; }                   // 単位元: 0, 1, -INF",
             "using segtree = atcoder::segtree<S, op, e>;",
             "// usage:",
             "// segtree seg(N);",
@@ -88,7 +89,7 @@
             "using F = int64;                           // 操作の型",
             "S mapping(F f, S x) { return f + x; }      // 操作演算:",
             "F composition(F f, F g) { return f + g; }  // 写像の合成:",
-            "F id() { return 0; }                       // 恒等写像:",
+            "F id() { return F{0}; }                       // 恒等写像:",
             "using lazy_segtree =",
             "    atcoder::lazy_segtree<S, op, e, F, mapping, composition, id>;",
             "// usage pattern 1:",
@@ -107,7 +108,7 @@
             "// S e() { return {0, 0}; }",
             "// S mapping(F f, S x) { return {x.value + f * x.size, x.size}; }",
             "// F composition(F f, F g) { return f + g; }",
-            "// F id() { return 0; }",
+            "// F id() { return F{0}; }",
             "// using lazy_segtree =",
             "//     atcoder::lazy_segtree<S, op, e, F, mapping, composition, id>;",
         ],
@@ -140,15 +141,15 @@
     },
     "[Include] power a ^ n": {
         "prefix": "include_pow",
-        "body": "int64 pw(int64 a, int64 n) { return n == 0 ? 1LL : pw(a, n - 1) * a; }",
+        "body": "int64 pw(int64 a, int64 n) { return n == 0 ? int64{1} : pw(a, n - 1) * a; }",
     },
     "[Include] power a ^ n by doubling": {
         "prefix": "include_pow_doubling",
         "body": [
             "int64 pw(int64 a, int64 n) {",
-            "    int64 res = 1LL;",
+            "    int64 res{1};",
             "    for(int i = 0; i < 64; i++) {",
-            "        if(n & (1LL << i)) res *= a;",
+            "        if(n & (int64{1} << i)) res *= a;",
             "        a *= a;",
             "    }",
             "    return res;",
@@ -194,7 +195,7 @@
             "    vector<pair<int64, int64>> res;",
             "    for(int64 a = 2; a * a <= N; ++a) {",
             "        if(N % a != 0) continue;",
-            "        int64 ex = 0;  // 指数",
+            "        int64 ex{0};  // 指数",
             "",
             "        // 割れる限り割り続ける",
             "        while(N % a == 0) {",
@@ -214,24 +215,24 @@
     },
     "[Def] 1d vector": {
         "prefix": "def_vec_1d",
-        "body": "vector<int> A(N, 0);",
+        "body": "vector<int> A(N, int{0});",
     },
     "[Def] 2d vector": {
         "prefix": "def_vec_2d",
-        "body": "vector<vector<int>> Mat(H, vector<int>(W, 0));",
+        "body": "vector<vector<int>> Mat(H, vector<int>(W, int{0}));",
     },
     "[Def] Nd vector": {
         "prefix": "def_vec_Nd",
-        "body": "vector State(I, vector(J, vector(K, vector(L, 0))));",
+        "body": "vector State(I, vector(J, vector(K, vector(L, int{0}))));",
         "description": "define Nd vector with Template argument deduction"
     },
     "[Def] pair": {
         "prefix": "def_pair",
-        "body": "pair<int, int> pr = {1, 10};",
+        "body": "pair<int, int> pr{1, 10};",
     },
     "[Def] map": {
         "prefix": "def_map_1d",
-        "body": "map<int, int> mp = {{1, 10}, {2, 20}};",
+        "body": "map<int, int> mp{{1, 10}, {2, 20}};",
     },
     "[Def] priority_queue": {
         "prefix": "def_priority_queue",
@@ -290,14 +291,14 @@
     "[Input] 1d vector": {
         "prefix": "cin_vec_1d",
         "body": [
-            "vector<int> A(N, 0);",
+            "vector<int> A(N, int{0});",
             "for(int i = 0; i < A.size(); i++) cin >> A[i];",
         ],
     },
     "[Input] 2d vector": {
         "prefix": "cin_vec_2d",
         "body": [
-            "vector<vector<int>> Mat(H, vector<int>(W, 0));",
+            "vector<vector<int>> Mat(H, vector<int>(W, int{0}));",
             "for(int i = 0; i < H; i++) {",
             "    for(int j = 0; j < W; j++) {",
             "        cin >> Mat[i][j];",
@@ -308,7 +309,7 @@
     "[Input] 1d vector with position": {
         "prefix": "cin_vec_1d_with_pos",
         "body": [
-            "vector<int> A(N, 0), pos(N, 0);",
+            "vector<int> A(N, int{0}), pos(N, int{0});",
             "for(int i = 0; i < A.size(); i++) {",
             "    cin >> A[i];",
             "    pos[A[i]] = i;",
@@ -318,7 +319,7 @@
     "[Input] 1d vector with existence": {
         "prefix": "cin_vec_1d_with_exist",
         "body": [
-            "vector<int> A(N, 0)",
+            "vector<int> A(N, int{0});",
             "vector<bool> exist(M, false);",
             "for(int i = 0; i < A.size(); i++) {",
             "    cin >> A[i];",
@@ -463,12 +464,14 @@
     },
     "[Method] calculate sum in 1d vector": {
         "prefix": "calc_sum_vec_1d",
-        "body": "accumulate(begin(A), end(A), 0)",
+        "body": [
+            "accumulate(begin(A), end(A), int64{0})",
+        ]
     },
     "[Method] calculate sum in stack": {
         "prefix": "calc_sum_stack_1d",
         "body": [
-            "int sum = 0;",
+            "int sum{0};",
             "while(!stk.empty()) {",
             "    sum = sum + stk.top();",
             "    stk.pop();",
@@ -478,7 +481,7 @@
     "[Method] calculate manhattan distance": {
         "prefix": "calc_manhattan_distance",
         "body": [
-            "int distance = 0;",
+            "int distance{0};",
             "for(int i = 0; i < N; i++) distance += abs(A[i] - B[i]);",
         ],
     },
@@ -488,9 +491,9 @@
             "using T = int;",
             "auto volumeCube = [&](T blX1, T blY1, T blZ1, T trX1, T trY1, T trZ1,",
             "                        T blX2, T blY2, T blZ2, T trX2, T trY2, T trZ2) {",
-            "    return max(0, min(trX1, trX2) - max(blX1, blX2)) *",
-            "            max(0, min(trY1, trY2) - max(blY1, blY2)) *",
-            "            max(0, min(trZ1, trZ2) - max(blZ1, blZ2));",
+            "    return max(T{0}, min(trX1, trX2) - max(blX1, blX2)) *",
+            "            max(T{0}, min(trY1, trY2) - max(blY1, blY2)) *",
+            "            max(T{0}, min(trZ1, trZ2) - max(blZ1, blZ2));",
             "};",
         ],
         "description": "blはbottom left、trはtop rightの意味。3つの共通部分の体積を求めたい場合はmin({trX1,trX2,trX3})のように",
@@ -537,6 +540,32 @@
         ],
         "description": "回文を判定する"
     },
+    "[Method] all true": {
+        "prefix": "all",
+        "body": [
+            "bool all{true};",
+            "vector<bool> tf;",
+            "for(int i = 0; i < N; i++) {",
+            "    if(!tf[i]) {",
+            "        all = false;",
+            "        break;",
+            "    }",
+            "}",
+        ],
+    },
+    "[Method] any true": {
+        "prefix": "any",
+        "body": [
+            "bool ani{false};",
+            "vector<bool> tf;",
+            "for(int i = 0; i < N; i++) {",
+            "    if(tf[i]) {",
+            "        ani = true;",
+            "        break;",
+            "    }",
+            "}",
+        ],
+    },
     "[Method] max value generally": {
         "prefix": "max_general",
         "body": [
@@ -575,7 +604,7 @@
     "[Method] min value generally": {
         "prefix": "min_general",
         "body": [
-            "int64 mn = numeric_limits<int64>::max();;  // 9e18",
+            "int64 mn = numeric_limits<int64>::max();  // 9e18",
             "for(int i = 0; i < N; i++) chmin(mn, A[i]);",
         ],
     },
@@ -723,7 +752,7 @@
     "[Method] make cumulative in 1d vector": {
         "prefix": "cumul_vec_1d",
         "body": [
-            "vector<int> A(N), cml(N + 1, 0);",
+            "vector<int> A(N), cml(N + 1, int{0});",
             "for(int i = 0; i < N; i++) cml[i + 1] = cml[i] + A[i];",
             "// usage:",
             "// cml[right] - cml[left]; // sum of [left, right)",
@@ -732,8 +761,8 @@
     "[Method] make cumulative in 2d vector": {
         "prefix": "cumul_vec_2d",
         "body": [
-            "vector mat(H, vector(W, 0LL));",
-            "vector mcuml(H + 1, vector(W + 1, 0LL));",
+            "vector mat(H, vector(W, int64{0}));",
+            "vector mcuml(H + 1, vector(W + 1, int64{0}));",
             "for(int i = 0; i < H; i++) {",
             "    for(int j = 0; j < W; j++) {",
             "        // cin >> mat[i][j];",
@@ -751,8 +780,8 @@
     "[Method] make cumulative in 3d vector": {
         "prefix": "cumul_vec_3d",
         "body": [
-            "vector tens(N, vector(N, vector(N, 0LL)));",
-            "vector tcuml(N + 1, vector(N + 1, vector(N + 1, 0LL)));",
+            "vector tens(N, vector(N, vector(N, int64{0})));",
+            "vector tcuml(N + 1, vector(N + 1, vector(N + 1, int64{0})));",
             "for(int i = 0; i < N; i++) {",
             "    for(int j = 0; j < N; j++) {",
             "        for(int k = 0; k < N; k++) {",
@@ -777,7 +806,7 @@
     "[Method] make cumulative xor in 1d vector": {
         "prefix": "cumulx_vec_1d",
         "body": [
-            "vector<int64> A(N), cumlx(N + 1, 0);",
+            "vector<int64> A(N), cumlx(N + 1, int64{0});",
             "for(int i = 0; i < N; i++) cumlx[i + 1] = cumlx[i] + (A[i] & (1 << d));",
             "// usage:",
             "// cumlx[right] ^ cumlx[left] * (1 << d) // xor-product [left, right)",
@@ -798,13 +827,13 @@
         "body": [
             "// 転倒数を求めたい配列はA(0-indexed)とする。",
             "fenwick_tree bit(N);",
-            "int64 inv = 0;",
+            "int64 inv{0};",
             "for(int i = 0; i < N; i++) {",
             "    inv += i - bit.sum(0, A[i] + 1);",
             "    bit.add(A[i], 1);",
             "}",
             "// O(N^2)の求め方",
-            "// int inv = 0;",
+            "// int inv{0};",
             "// for(int i = 0; i < N; i++)",
             "//     for(int j = 0; j < N; j++)",
             "//         if(i < j && A[i] > A[j]) inv++;",
@@ -919,7 +948,7 @@
         "prefix": "loop_Nd",
         "body": [
             "int N, depth;",
-            "vector<int> items(depth, 0);",
+            "vector<int> items(depth, int{0});",
             "auto loopN = [&](auto &&self, const int d) -> void {",
             "    // exit conditions",
             "    if(d == depth) {",
@@ -963,7 +992,7 @@
             "int64 x;",
             "for(int i = 0; i < 64; i++) {",
             "    // logic",
-            "    // int64 digit = 1LL << i;",
+            "    // int64 digit = int64{1} << i;",
             "    // if(x & digit) {",
             "    //     cout << digit << endl;",
             "    // }",
@@ -1060,7 +1089,7 @@
         "body": [
             "// nCr, r: ball, n: box, n >= r",
             "int N, R;",
-            "vector<int> combi(R, 0);",
+            "vector<int> combi(R, int{0});",
             "auto loop_cmb_nodup = [&](auto &&self, const int d, const int st) -> void {",
             "    // exit conditions",
             "    if(d == R) {",
@@ -1085,7 +1114,7 @@
         "body": [
             "// n+r-1Cn, n: ball, r: box",
             "int N, R;",
-            "vector<int> combi(N, 0), ball_num(R, 0);",
+            "vector<int> combi(N, int{0}), ball_num(R, int{0});",
             "auto loop_cmb_dup = [&](auto &&self, const int d, const int st) -> void {",
             "    // exit conditions",
             "    if(d == N) {",
@@ -1130,7 +1159,7 @@
     "[Algorithm] compress coordinate in 1d vector": {
         "prefix": "compress_coordinate_vec_1d",
         "body": [
-            "vector<int> A = {8, 100, 33, 33, 33, 12, 6, 1211};",
+            "vector<int> A{8, 100, 33, 33, 33, 12, 6, 1211};",
             "vector<int> B = A; ",
             "sort(begin(B), end(B));",
             "B.erase(unique(begin(B), end(B)), end(B));",
@@ -1142,8 +1171,7 @@
     "[Algorithm] compress run length in 1d vector": {
         "prefix": "compress_runlength_vec_1d",
         "body": [
-            "int ans = 0;",
-            "int pre = 0;",
+            "int ans{0}, pre{0};",
             "for (int i = 1; i < N; i++) {",
             "    if (A[i] != A[i - 1]) {",
             "        ans += f(i - pre);",
@@ -1169,7 +1197,7 @@
             "}",
             "int transformed_i = i;",
             "for(int d = 0; d < MAX_DOUBLING; ++d) {",
-            "    if(K & (1LL << d)) transformed_i = next[d][transformed_i];",
+            "    if(K & (int64{1} << d)) transformed_i = next[d][transformed_i];",
             "}",
         ],
     },
@@ -1177,8 +1205,8 @@
         "prefix": "binary_search",
         "body": [
             "auto f = [&](int64 x) { return x >= K; };  // 判定問題",
-            "int64 ng = -1, ok = 2e18;  // ng:解が存在しない値, ok:解が存在する値",
-            "// int64 ng = 2e18, ok = 0;  // 反転も可能",
+            "int64 ng{-1}, ok{2e18};  // ng:解が存在しない値, ok:解が存在する値",
+            "// int64 ng{2e18}, ok{0};  // 反転も可能",
             "while(abs(ok - ng) > 1) {",
             "    int64 mid = (ok + ng) / 2;",
             "    if(f(mid))",
@@ -1227,7 +1255,7 @@
         "body": [
             "// outer variable: vector<vector<int>> graph",
             "vector<bool> seen(N, false), finished(N, false);",
-            "vector<int64> score_subgraph(N, 0LL);",
+            "vector<int64> score_subgraph(N, int64{0});",
             "auto dfs_graph = [&](auto &&self, const int node) -> int64 {",
             "    // shortcut",
             "",
@@ -1242,7 +1270,7 @@
             "",
             "    // outflow logic",
             "    finished[node] = true;",
-            "    return 0LL;",
+            "    return int64{0};",
             "};",
             "// usage:",
             "// for (int i = 0; i < N; ++i) {",
@@ -1256,7 +1284,7 @@
         "body": [
             "// ロジックは、葉-枝-根の順に確かめる",
             "vector<vector<int>> tree",
-            "vector<int64> score_subtree(N, 0LL);",
+            "vector<int64> score_subtree(N, int64{0});",
             "auto dfs_tree = [&](auto &&self, const int node, const int par) -> int64 {",
             "    // shortcut",
             "",
@@ -1278,7 +1306,7 @@
             "        score_subtree[node] += score_subtree[chi];",
             "    }",
             "    // int64 score_partree = socre_wholetree - score_subtree[node];",
-            "    return 0LL;",
+            "    return int64{0};",
             "};",
             "// usage:",
             "// dfs_tree(dfs_tree, 0, -1);",
@@ -1425,6 +1453,7 @@
             "        if(seen[nh][nw]) continue;",
             "        // push state",
             "        Q.emplace(nh, nw, score[h][w]);",
+            "        // pre-logic for nh,nw",
             "    }",
             "}",
         ],
@@ -1433,7 +1462,7 @@
         "prefix": "imos",
         "body": [
             "// count",
-            "vector<int64> imos(T + 1, 0);",
+            "vector<int64> imos(T + 1, int64{0});",
             "for(int i = 0; i < N; i++) {",
             "    imos[from] += num;",
             "    imos[to] -= num;",
@@ -1454,7 +1483,7 @@
         "prefix": "dp_general",
         "body": [
             "// initialize dp",
-            "vector<int64> dp(N, 0LL);",
+            "vector<int64> dp(N, int64{0});",
             "",
             "// init sub score",
             "dp[0] = 1;",
@@ -1469,8 +1498,8 @@
     "[Algorithm] 0-1knapsack DP": {
         "prefix": "dp_knapsack_01",
         "body": [
-            "// outer variable: int N, W, vector<int> w(N, 0), v(N, 0)",
-            "vector<int> dp(W + 1, 0);",
+            "// outer variable: int N, W, vector<int> w(N, int{0}), v(N, int{0})",
+            "vector<int> dp(W + 1, int{0});",
             "for(int i = 0; i < N; i++) {",
             "    for(int j = W; j >= 0; j--) {",
             "        if(j - w[i] < 0) continue;",
@@ -1489,9 +1518,9 @@
             "// pattern of N = 063435:",
             "// 00000-59999, 60000-62999, 63000-63399, 63400-63429, 63430-63434, 63435",
             "// digit * is_smaller(0-9 available) * sum_digit",
-            "int D = Ns.size(), F = 2, I = D * 10;",
-            "vector dp(D + 1, vector(F, vector(I, 0LL)));  // value: count",
-            "dp[0][0][0] = 1LL;  // seed for sum",
+            "int D = Ns.size(), F{2}, I{D * 10};",
+            "vector dp(D + 1, vector(F, vector(I, int64{0})));  // value: count",
+            "dp[0][0][0] = int64{1};  // seed for sum",
             "for(int d = 0; d < D; d++) {",
             "    int Nd = int(Ns[d] - '0');",
             "    for(int f = 0; f < F; f++) {",
@@ -1534,11 +1563,11 @@
             "// pattern of N = 063435:",
             "// 00000-59999, 60000-62999, 63000-63399, 63400-63429, 63430-63434, 63435",
             "// digit * is_smaller(0-9 available) * get_out_of_leading_zero * prod_digit",
-            "int D = Ns.size(), F = 2, Lz = 2, I = pw(9, D) + 1;",
-            "vector dp(D + 1, vector(F, vector(Lz, vector(I, 0LL))));  // value: count",
+            "int D = Ns.size(), F{2}, Lz{2}, I{pw(9, D) + 1};",
+            "vector dp(D + 1, vector(F, vector(Lz, vector(I, int64{0}))));  // value: count",
             "// seeds for prod, not allowed to update dp[*][*][0][*]",
-            "dp[0][0][0][1] = 1LL;",
-            "for(int d = 1; d < D; d++) dp[d][1][0][1] = 1LL;  // for 0****, 00***, ...",
+            "dp[0][0][0][1] = int64{1};",
+            "for(int d = 1; d < D; d++) dp[d][1][0][1] = int64{1};  // for 0****, 00***, ...",
             "// digit dp",
             "for(int d = 0; d < D; d++) {",
             "    int Nd = int(Ns[d] - '0');",
@@ -1571,8 +1600,8 @@
         "body": [
             "// https://ei1333.hateblo.jp/entry/2017/04/10/224413",
             "// outer variable: vector<vector<int>> tree, vector<int64> Dsubtree",
-            "int root_ver = 0;",
-            "vector<int64> score(N, 0LL);",
+            "int root_ver{0};",
+            "vector<int64> score(N, int64{0});",
             "auto rerouting = [&](auto &&self, const int ver, const int par,",
             "                     const int64 Dpar) -> void {",
             "    // solve ver's score",
@@ -1596,7 +1625,7 @@
     "[Algorithm] Dijkstra": {
         "prefix": "dijkstra",
         "body": [
-            "constexpr int64 INF = (1LL << 60);",
+            "constexpr int64 INF = (int64{1} << 60);",
             "struct Edge {",
             "    int to;",
             "    int64 cost;",
@@ -1648,8 +1677,8 @@
     "[Method] two pointers": {
         "prefix": "two_pointers",
         "body": [
-            "int64 val = 0;",
-            "int left = 0, right = 0;",
+            "int64 val{0};",
+            "int left{0}, right{0};",
             "while(left < N) {",
             "    // optional: keep left < right",
             "    while(left >= right) right++;",

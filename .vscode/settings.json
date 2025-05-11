@@ -60,7 +60,11 @@
         "list": "cpp",
         "queue": "cpp",
         "span": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "map": "cpp",
+        "regex": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp"
     },
     "code-runner.runInTerminal": true,
     "code-runner.executorMap": {
