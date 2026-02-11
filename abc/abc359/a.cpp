@@ -1,0 +1,31 @@
+// #pragma GCC optimize("unroll-loops")
+// #pragma GCC optimize("O3")
+#include <bits/stdc++.h>
+using namespace std;
+
+#define fastIO()                      \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(nullptr);                 \
+    cout.tie(nullptr)
+#define endl "\n"
+void Yes(bool a) { cout << (a ? "Yes" : "No") << endl; }
+typedef long long int int64;
+
+int main() {
+    fastIO();
+    // input
+    int N;
+    cin >> N;
+
+    // logic
+    string S;
+    int c = 0;
+    for(int i = 0; i < N; i++) {
+        cin >> S;
+        if(S == "Takahashi") c++;
+    }
+
+    // output
+    cout << c << endl;
+    return 0;
+}
